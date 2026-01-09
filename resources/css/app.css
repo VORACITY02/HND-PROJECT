@@ -9,3 +9,83 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/*
+  Global color theme override (Lemon/Lime/Forest)
+  ------------------------------------------------
+  This project uses Tailwind utility classes heavily in Blade views.
+  Instead of rewriting every view, we remap the most common existing
+  color utilities (blue/slate/sky/emerald/red) to the new palette.
+
+  Because this CSS is loaded after Tailwind, these rules override the
+  generated utilities (same specificity, later in the cascade).
+*/
+:root {
+  /* Sky / Ocean theme */
+  --ocean-950: #082f49; /* deep navy */
+  --ocean-900: #0c4a6e;
+  --ocean-800: #075985;
+  --sky-50: #f0f9ff;
+  --sky-100: #e0f2fe;
+  --sky-200: #bae6fd;
+  --sky-300: #7dd3fc;
+  --sky-400: #38bdf8;
+  --sky-500: #0ea5e9;
+  --sun-100: #fef9c3; /* small warm highlight */
+  --sun-200: #fde68a;
+}
+
+/* Backgrounds */
+.bg-slate-50, .bg-gray-50 { background-color: var(--sky-50) !important; }
+.bg-slate-100, .bg-gray-100 { background-color: var(--sky-100) !important; }
+.bg-slate-800, .bg-gray-800 { background-color: var(--ocean-950) !important; }
+.bg-slate-900, .bg-gray-900 { background-color: var(--ocean-950) !important; }
+
+.bg-blue-600, .bg-sky-600 { background-color: var(--sky-500) !important; }
+.bg-blue-700, .bg-sky-700 { background-color: var(--sky-400) !important; }
+.bg-emerald-600, .bg-green-600 { background-color: var(--sky-500) !important; }
+
+/* Subtle background variants used with opacity */
+.bg-blue-600\/20, .bg-sky-600\/20, .bg-blue-500\/20, .bg-sky-500\/20 { background-color: rgb(14 165 233 / 0.16) !important; }
+.bg-blue-600\/80, .bg-sky-600\/80 { background-color: rgb(14 165 233 / 0.30) !important; }
+.bg-slate-700\/50 { background-color: rgb(12 74 110 / 0.50) !important; }
+.bg-slate-700\/60 { background-color: rgb(12 74 110 / 0.55) !important; }
+.bg-slate-600\/80 { background-color: rgb(12 74 110 / 0.45) !important; }
+
+/* Error/Warning backgrounds (keep readable) */
+.bg-red-50, .bg-red-100 { background-color: #fff7ed !important; }
+.bg-yellow-50, .bg-yellow-100 { background-color: #fffbeb !important; }
+
+/* Text */
+.text-slate-900, .text-gray-900 { color: var(--ocean-950) !important; }
+.text-slate-800, .text-gray-800 { color: var(--ocean-950) !important; }
+.text-slate-700, .text-gray-700 { color: var(--ocean-900) !important; }
+.text-slate-600, .text-gray-600 { color: rgb(12 74 110 / 0.85) !important; }
+.text-slate-500, .text-gray-500 { color: rgb(12 74 110 / 0.70) !important; }
+.text-slate-400, .text-gray-400 { color: rgb(8 145 178 / 0.55) !important; }
+.text-slate-300, .text-gray-300 { color: rgb(8 145 178 / 0.75) !important; }
+
+.text-blue-400, .text-blue-500, .text-sky-300, .text-sky-400 { color: var(--sky-400) !important; }
+.text-blue-600, .text-sky-600 { color: var(--ocean-900) !important; }
+.text-emerald-400, .text-green-700 { color: var(--ocean-900) !important; }
+.text-red-700 { color: var(--ocean-950) !important; }
+
+/* Borders */
+.border-slate-200, .border-gray-200 { border-color: rgb(12 74 110 / 0.15) !important; }
+.border-slate-300, .border-gray-300 { border-color: rgb(12 74 110 / 0.20) !important; }
+.border-slate-600 { border-color: rgb(125 211 252 / 0.25) !important; }
+.border-blue-700, .border-blue-500, .border-sky-500, .border-sky-700 { border-color: rgb(125 211 252 / 0.45) !important; }
+.border-emerald-500 { border-color: rgb(125 211 252 / 0.45) !important; }
+.border-red-300 { border-color: rgb(251 191 36 / 0.55) !important; }
+.border-yellow-300 { border-color: rgb(251 191 36 / 0.55) !important; }
+
+/* Buttons that were red become warm amber (still readable) */
+.bg-red-600, .bg-red-500 { background-color: #fbbf24 !important; color: var(--ocean-950) !important; }
+.hover\:bg-red-600:hover, .hover\:bg-red-500:hover { background-color: #fcd34d !important; }
+
+/* Links */
+.text-blue-600, .text-blue-700, .hover\:text-blue-700:hover { color: var(--ocean-900) !important; }
+.hover\:bg-blue-700:hover, .hover\:bg-blue-600:hover, .hover\:bg-sky-700:hover, .hover\:bg-sky-600:hover { background-color: var(--sky-400) !important; }
+
+/* Focus rings (optional polish) */
+.focus\:ring-blue-500:focus, .focus\:ring-sky-500:focus { --tw-ring-color: rgb(14 165 233 / 0.45) !important; }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="max-w-4xl mx-auto">
     <div class="mb-8">
-        <a href="{{ route('admin.users.index') }}" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center mb-4">
+        <a href="{{ route('admin.users.index') }}" class="text-green-900 hover:text-green-950 font-medium inline-flex items-center mb-4">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
@@ -89,7 +89,7 @@
             <a href="{{ route('admin.users.index') }}" class="px-6 py-3 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 font-medium">
                 Cancel
             </a>
-            <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium shadow-lg">
+            <button type="submit" class="px-6 py-3 bg-lime-400 text-green-950 rounded-lg hover:bg-lime-300 font-medium shadow-lg border border-lime-200">
                 Create User
             </button>
         </div>

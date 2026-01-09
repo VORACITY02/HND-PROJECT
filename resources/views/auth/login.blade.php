@@ -55,19 +55,19 @@
                     <span class="text-gray-700">Remember me</span>
                 </label>
 
-                <a href="{{ route('password.request') }}" class="text-blue-600 hover:text-blue-800 hover:underline">
+                <a href="{{ route('password.request') }}" class="text-green-900 hover:text-green-950 hover:underline">
                     Forgot password?
                 </a>
             </div>
 
-            <button class="w-full py-3 bg-blue-600 text-white rounded hover:bg-blue-700 font-medium">
+            <button class="w-full py-3 bg-lime-400 text-green-950 rounded hover:bg-lime-300 font-medium border border-lime-200">
                 Login
             </button>
         </form>
 
         <p class="text-center text-gray-600 mt-5 text-sm">
             Not registered?
-            <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-800 font-medium hover:underline">Create account</a>
+            <a href="{{ route('register') }}" class="text-green-900 hover:text-green-950 font-medium hover:underline">Create account</a>
         </p>
 
     </div>

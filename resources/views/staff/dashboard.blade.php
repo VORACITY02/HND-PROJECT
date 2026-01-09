@@ -56,11 +56,11 @@
     </div>
 
     <!-- Messages Sent -->
-    <div class="group relative overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl shadow-lg hover:shadow-purple-900/30 transition-all border border-slate-700">
-        <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+    <div class="group relative overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl shadow-lg hover:shadow-lime-400/20 transition-all border border-slate-700">
+        <div class="absolute inset-0 bg-gradient-to-br from-lime-300/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <div class="relative p-6">
             <div class="flex items-center justify-between mb-4">
-                <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center shadow-md">
+                <div class="w-12 h-12 bg-lime-400 rounded-lg flex items-center justify-center shadow-md">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
                     </svg>
@@ -68,7 +68,7 @@
             </div>
             <p class="text-slate-400 text-sm font-medium mb-2">Messages Sent</p>
             <p class="text-4xl font-bold text-white mb-2">{{ \App\Models\Message::where('sender_id', auth()->id())->count() }}</p>
-            <p class="text-xs text-purple-400">Communications</p>
+            <p class="text-xs text-lime-300">Communications</p>
         </div>
     </div>
 
@@ -105,6 +105,31 @@
     </div>
 </div>
 
+<!-- Notices / Instructions -->
+<div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 rounded-xl shadow-lg border border-slate-700 mb-6">
+    <h2 class="text-xl font-bold mb-1">Staff Dashboard</h2>
+    <p class="text-slate-300 text-sm">Instructions: Apply to become a supervisor (if not yet approved), create internship tasks for assigned students, and grade their submissions. You’ll receive notifications when your supervisor application is approved or rejected.</p>
+    @isset($unreadCount)
+        @if($unreadCount > 0)
+            <div class="mt-3 bg-amber-500/20 border border-amber-400/40 text-amber-200 px-3 py-2 rounded">
+                You have {{ $unreadCount }} unread notification(s).
+            </div>
+        @endif
+    @endisset
+    @isset($recentMessages)
+        @if($recentMessages->count())
+        <div class="mt-3">
+            <div class="font-semibold mb-1">Recent Notifications</div>
+            <ul class="text-sm list-disc pl-5 text-slate-200">
+                @foreach($recentMessages as $msg)
+                    <li><span class="font-medium">{{ $msg->subject }}</span> — <span class="text-slate-300">{{ $msg->created_at->diffForHumans() }}</span></li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+    @endisset
+</div>
+
 <!-- Quick Actions -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
     <a href="{{ route('messages.create') }}" class="group relative overflow-hidden bg-gradient-to-br from-emerald-900 to-emerald-800 p-6 rounded-xl hover:from-emerald-800 hover:to-emerald-700 transition-all shadow-xl hover:shadow-2xl hover:shadow-emerald-900/50 transform hover:scale-105 border border-emerald-700">
@@ -135,81 +160,129 @@
         </div>
     </a>
 
-    <a href="{{ route('admin.users.index') }}" class="group relative overflow-hidden bg-gradient-to-br from-amber-900 to-amber-800 p-6 rounded-xl hover:from-amber-800 hover:to-amber-700 transition-all shadow-xl hover:shadow-2xl hover:shadow-amber-900/50 transform hover:scale-105 border border-amber-700">
+    @php($app = auth()->user()->SupervisorApplication)
+    @if(!$app)
+    <a href="{{ route('staff.supervisor.apply') }}" class="group relative overflow-hidden bg-gradient-to-br from-green-950 to-green-900 p-6 rounded-xl hover:from-green-900 hover:to-green-800 transition-all shadow-xl hover:shadow-2xl hover:shadow-lime-400/20 transform hover:scale-105 border border-lime-300/25">
         <div class="flex items-start">
-            <div class="w-12 h-12 bg-amber-600 rounded-lg flex items-center justify-center mr-4 shadow-lg">
+            <div class="w-12 h-12 bg-lime-400 rounded-lg flex items-center justify-center mr-4 shadow-lg">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 515.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 919.288 0M15 7a3 3 0 11-6 0 3 3 0 616 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/>
                 </svg>
             </div>
             <div>
-                <p class="font-bold text-white text-lg mb-1">Manage Students</p>
-                <p class="text-sm text-amber-300">User management</p>
+                <p class="font-bold text-white text-lg mb-1">Apply to be Supervisor</p>
+                <p class="text-sm text-lime-100/70">Submit application</p>
             </div>
         </div>
     </a>
-
-    <a href="{{ route('profile.edit') }}" class="group relative overflow-hidden bg-gradient-to-br from-purple-900 to-purple-800 p-6 rounded-xl hover:from-purple-800 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl hover:shadow-purple-900/50 transform hover:scale-105 border border-purple-700">
+    @elseif($app->status === 'pending')
+    <div class="group relative overflow-hidden bg-gradient-to-br from-slate-800 to-slate-700 p-6 rounded-xl border border-slate-600">
         <div class="flex items-start">
-            <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4 shadow-lg">
+            <div class="w-12 h-12 bg-slate-500 rounded-lg flex items-center justify-center mr-4 shadow-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 1"/>
+                </svg>
+            </div>
+            <div>
+                <p class="font-bold text-white text-lg mb-1">Application Pending</p>
+                <p class="text-sm text-slate-300">Awaiting admin approval</p>
+            </div>
+        </div>
+    </div>
+    @elseif($app->status === 'rejected')
+    <a href="{{ route('staff.supervisor.apply') }}" class="group relative overflow-hidden bg-gradient-to-br from-rose-900 to-rose-800 p-6 rounded-xl hover:from-rose-800 hover:to-rose-700 transition-all shadow-xl hover:shadow-2xl hover:shadow-rose-900/50 transform hover:scale-105 border border-rose-700">
+        <div class="flex items-start">
+            <div class="w-12 h-12 bg-rose-600 rounded-lg flex items-center justify-center mr-4 shadow-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/>
+                </svg>
+            </div>
+            <div>
+                <p class="font-bold text-white text-lg mb-1">Application Rejected</p>
+                <p class="text-sm text-rose-300">Click to re-apply</p>
+            </div>
+        </div>
+    </a>
+    @else
+    <div class="group relative overflow-hidden bg-gradient-to-br from-emerald-900 to-emerald-800 p-6 rounded-xl border border-emerald-700">
+        <div class="flex items-start">
+            <div class="w-12 h-12 bg-emerald-600 rounded-lg flex items-center justify-center mr-4 shadow-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+            <div>
+                <p class="font-bold text-white text-lg mb-1">Supervisor Approved</p>
+                <p class="text-sm text-emerald-300">You can now take students</p>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    <a href="{{ route('profile.edit') }}" class="group relative overflow-hidden bg-gradient-to-br from-green-950 to-green-900 p-6 rounded-xl hover:from-green-900 hover:to-green-800 transition-all shadow-xl hover:shadow-2xl hover:shadow-lime-400/20 transform hover:scale-105 border border-lime-300/25">
+        <div class="flex items-start">
+            <div class="w-12 h-12 bg-lime-400 rounded-lg flex items-center justify-center mr-4 shadow-lg">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                 </svg>
             </div>
             <div>
                 <p class="font-bold text-white text-lg mb-1">My Profile</p>
-                <p class="text-sm text-purple-300">Settings</p>
+                <p class="text-sm text-lime-100/70">Settings</p>
             </div>
         </div>
     </a>
 </div>
 
-<!-- Recent Students -->
-<div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-700">
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-bold text-white flex items-center">
-            <svg class="w-8 h-8 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 515.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 919.288 0M15 7a3 3 0 11-6 0 3 3 0 616 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-            </svg>
-            Recent Students
-        </h2>
-        <a href="{{ route('admin.users.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-all shadow-lg text-sm">
-            View All
-        </a>
+<!-- My Supervised Students -->
+<div class="bg-white p-6 rounded-xl shadow border border-slate-200 mb-8">
+    <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold text-slate-800">My Supervised Students</h2>
+        <a href="{{ route('staff.tasks.index') }}" class="inline-block bg-slate-900 text-white px-4 py-2 rounded">Manage Tasks & Submissions</a>
     </div>
-    
-    @php
-        $recentUsers = \App\Models\User::where('role', 'user')->orderBy('created_at', 'desc')->take(5)->get();
-    @endphp
 
-    @if($recentUsers->count() > 0)
-        <div class="space-y-3">
-            @foreach($recentUsers as $recentUser)
-                <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-xl hover:bg-slate-700/50 transition-all border border-slate-700 hover:border-purple-700">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
-                            <span class="text-white font-bold">{{ substr($recentUser->name, 0, 1) }}</span>
-                        </div>
-                        <div>
-                            <p class="font-bold text-white">{{ $recentUser->name }}</p>
-                            <p class="text-xs text-slate-400">{{ $recentUser->email }}</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <span class="px-2 py-1 text-xs font-bold rounded-full bg-amber-900 text-amber-200">User</span>
-                        <span class="text-xs text-slate-500">{{ $recentUser->created_at->diffForHumans() }}</span>
-                    </div>
-                </div>
-            @endforeach
+    @if(isset($assignmentRows) && count($assignmentRows))
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm border">
+                <thead class="bg-slate-100">
+                    <tr>
+                        <th class="p-2 text-left">Student</th>
+                        <th class="p-2 text-left">Email</th>
+                        <th class="p-2 text-center">Progress</th>
+                        <th class="p-2 text-left">Approved By (Admin)</th>
+                        <th class="p-2 text-center">Assigned At</th>
+                        <th class="p-2 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($assignmentRows as $row)
+                        @php($a = $row['assignment'])
+                        @php($student = $row['student'])
+                        <tr class="border-t">
+                            <td class="p-2 font-medium">{{ $student?->name ?? 'Unknown' }} (ID: {{ $a->student_id }})</td>
+                            <td class="p-2">{{ $student?->email ?? '-' }}</td>
+                            <td class="p-2 text-center">
+                                <span class="inline-block px-2 py-1 rounded bg-emerald-50 border border-emerald-200 text-emerald-800">
+                                    {{ $row['progress'] }}%
+                                </span>
+                            </td>
+                            <td class="p-2">{{ $a->assignedBy?->name ?? 'N/A' }} (ID: {{ $a->assigned_by_admin_id }})</td>
+                            <td class="p-2 text-center">{{ optional($a->assigned_at)->toDayDateTimeString() }}</td>
+                            <td class="p-2 text-center">
+                                <a href="{{ route('staff.tasks.index') }}" class="inline-block bg-lime-400 text-green-950 px-3 py-1 rounded border border-lime-200">View</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+
+        <p class="text-xs text-slate-500 mt-3">Note: Progress is calculated from graded task submissions for your tasks.</p>
     @else
-        <div class="text-center py-12">
-            <svg class="w-16 h-16 mx-auto text-slate-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 515.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 919.288 0M15 7a3 3 0 11-6 0 3 3 0 616 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-            </svg>
-            <p class="text-slate-400 text-lg mb-4">No students registered yet</p>
-            <p class="text-slate-500 text-sm">Students will appear here when they join the platform!</p>
+        <div class="bg-yellow-50 border border-yellow-200 text-yellow-900 p-4 rounded">
+            No students have been assigned to you for supervision yet.
         </div>
     @endif
 </div>
+
 @endsection

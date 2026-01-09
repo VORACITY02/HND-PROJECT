@@ -4,7 +4,7 @@
 <!-- Back to Dashboard Button -->
 <div class="mb-8">
     <a href="@if(auth()->user()->role === 'admin'){{ route('admin.dashboard') }}@elseif(auth()->user()->role === 'staff'){{ route('staff.dashboard') }}@else{{ route('user.dashboard') }}@endif" 
-       class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+       class="inline-flex items-center text-green-900 hover:text-green-950 font-medium transition-colors">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
         </svg>
@@ -37,7 +37,7 @@
 <!-- Profile Update Form -->
 <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-8 mb-8">
     <div class="flex items-center space-x-3 mb-6">
-        <div class="w-10 h-10 bg-blue-600/10 rounded-lg flex items-center justify-center">
+        <div class="w-10 h-10 bg-lime-300/15 rounded-lg flex items-center justify-center">
             <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
             </svg>

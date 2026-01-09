@@ -162,4 +162,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('last_seen_at', '>=', now()->subMinutes(2))
                     ->where('last_seen_at', '<=', now()); // Ensure not future dates
     }
+    public function SupervisorApplication(){
+        return $this->hasOne(SupervisorApplication::class,'staff_id');
+    }
+
+    public function personalData()
+    {
+        return $this->hasOne(PersonalData::class);
+    }
 }

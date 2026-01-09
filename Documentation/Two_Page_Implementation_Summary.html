@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Project Implementation Summary</title>
+<style>
+ body { font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color: #0f172a; margin: 0; }
+ .page { max-width: 820px; margin: 24px auto; padding: 24px; }
+ h1 { font-size: 28px; margin: 0 0 12px; }
+ h2 { font-size: 20px; margin: 24px 0 8px; border-bottom: 2px solid #e2e8f0; padding-bottom: 4px; }
+ h3 { font-size: 16px; margin: 16px 0 6px; }
+ p, li { line-height: 1.5; font-size: 14px; }
+ code { background: #f1f5f9; padding: 2px 4px; border-radius: 4px; }
+ .muted { color: #475569; }
+ .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+ .shot { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+ .shot figcaption { font-size: 12px; color: #475569; padding: 6px 10px; background: #f8fafc; border-top: 1px solid #e2e8f0; }
+ .shot svg { display: block; width: 100%; height: auto; }
+ .kbd { padding: 2px 6px; border: 1px solid #cbd5e1; border-bottom-width: 2px; border-radius: 4px; font-size: 12px; }
+ .two-col { columns: 2; column-gap: 28px; }
+ .section { break-inside: avoid; }
+ @media print { a[href^="http"]:after { content: " (" attr(href) ")"; font-size: 10px; color: #64748b; }
+ body { margin: 0; }
+ .page { box-shadow: none; margin: 0.5in; }
+ }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Project Implementation Summary</h1>
+    <p class="muted">Date: 2025-12-16</p>
+    <p class="muted">Objective: Single dashboard per role + Welcome, functional Supervisor Application (staff apply, admin approve/reject), inbox deletion for read direct messages (single/bulk), and a safe purge command for all users and related data.</p>
+  </header>
+
+  <section class="section">
+    <h2>1) Dashboards Simplified (One per role + Welcome)</h2>
+    <ul>
+      <li><strong>Controller</strong>: <code>app/Http/Controllers/DashboardController.php</code></li>
+      <li><strong>Views</strong>: Admin <code>resources/views/admin/dashboard.blade.php</code>, Staff <code>resources/views/staff/dashboard.blade.php</code>, User <code>resources/views/user/dashboard.blade.php</code>, Welcome <code>resources/views/welcome.blade.php</code></li>
+      <li>Removed legacy backups: dashboard_backup &amp; dashboard_simple files and welcome_backup</li>
+      <li><strong>Usage</strong>: <code>/dashboard</code> (role-redirect), plus <code>/admin/dashboard</code>, <code>/staff/dashboard</code>, <code>/user/dashboard</code>.</li>
+    </ul>
+    <figure class="shot">
+      <svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dashboard wireframe">
+        <rect width="1200" height="600" fill="#f8fafc"/>
+        <rect x="0" y="0" width="1200" height="56" fill="#0ea5e9"/>
+        <text x="24" y="36" font-size="20" fill="#fff">Dashboard (role-based)</text>
+        <rect x="24" y="84" width="720" height="200" fill="#e2e8f0" rx="8"/>
+        <text x="40" y="120" font-size="16" fill="#0f172a">Stats/Overview</text>
+        <rect x="24" y="308" width="350" height="220" fill="#e2e8f0" rx="8"/>
+        <rect x="394" y="308" width="350" height="220" fill="#e2e8f0" rx="8"/>
+        <rect x="764" y="84" width="412" height="444" fill="#f1f5f9" rx="8"/>
+        <text x="780" y="120" font-size="14" fill="#334155">Quick Links</text>
+      </svg>
+      <figcaption>Dashboard rendered per user role. Single view per role; legacy backups removed.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section">
+    <h2>2) Supervisor Application (Staff Apply; Admin Approve/Reject)</h2>
+    <ul>
+      <li><strong>Staff</strong>: <code>GET/POST /staff/supervisor/apply</code> (names: <code>staff.supervisor.apply</code>, <code>staff.supervisor.apply.store</code>)</li>
+      <li><strong>Admin</strong>: <code>GET /admin/supervisors</code>, <code>POST /admin/supervisors/{application}/approve</code>, <code>POST /admin/supervisors/{application}/reject</code></li>
+      <li><strong>Controllers</strong>: Staff <code>SupervisorApplicationController</code>, Admin <code>AdminSupervisorController</code></li>
+      <li><strong>View</strong>: <code>resources/views/admin/supervisors/index.blade.php</code></li>
+    </ul>
+    <div class="grid">
+      <figure class="shot">
+        <svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Staff Apply wireframe">
+          <rect width="1200" height="600" fill="#f8fafc"/>
+          <rect x="0" y="0" width="1200" height="56" fill="#0ea5e9"/>
+          <text x="24" y="36" font-size="20" fill="#fff">Apply for Supervisor</text>
+          <rect x="24" y="84" width="1152" height="420" fill="#ffffff" stroke="#e2e8f0" rx="8"/>
+          <rect x="48" y="120" width="500" height="42" fill="#e2e8f0" rx="6"/>
+          <text x="48" y="110" font-size="14" fill="#334155">Max Students</text>
+          <rect x="48" y="200" width="700" height="140" fill="#e2e8f0" rx="6"/>
+          <text x="48" y="188" font-size="14" fill="#334155">Notes (optional)</text>
+          <rect x="48" y="360" width="160" height="40" fill="#0ea5e9" rx="6"/>
+          <text x="60" y="385" font-size="14" fill="#fff">Submit</text>
+        </svg>
+        <figcaption>Staff: Apply form at <code>/staff/supervisor/apply</code>.</figcaption>
+      </figure>
+      <figure class="shot">
+        <svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Admin Review wireframe">
+          <rect width="1200" height="600" fill="#f8fafc"/>
+          <rect x="0" y="0" width="1200" height="56" fill="#0ea5e9"/>
+          <text x="24" y="36" font-size="20" fill="#fff">Supervisor Applications</text>
+          <rect x="24" y="84" width="1152" height="420" fill="#ffffff" stroke="#e2e8f0" rx="8"/>
+          <rect x="48" y="120" width="1056" height="52" fill="#e2e8f0" rx="6"/>
+          <rect x="48" y="182" width="1056" height="52" fill="#e2e8f0" rx="6"/>
+          <rect x="48" y="244" width="1056" height="52" fill="#e2e8f0" rx="6"/>
+          <rect x="940" y="120" width="76" height="32" fill="#10b981" rx="6"/>
+          <rect x="1028" y="120" width="76" height="32" fill="#ef4444" rx="6"/>
+          <text x="948" y="140" font-size="12" fill="#fff">Approve</text>
+          <text x="1042" y="140" font-size="12" fill="#fff">Reject</text>
+        </svg>
+        <figcaption>Admin: List + Approve/Reject at <code>/admin/supervisors</code>.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>3) Messaging: Delete Read Direct Messages</h2>
+    <ul>
+      <li><strong>Routes</strong>: <code>DELETE /messages/{message}</code>, <code>DELETE /messages</code> (bulk)</li>
+      <li><strong>Rules</strong>: Only messages that are direct (not broadcast), received by current user, and already read</li>
+      <li><strong>UI</strong>: Checkboxes shown only for deletable messages; Select All + Delete Selected; per-item Delete</li>
+    </ul>
+    <figure class="shot">
+      <svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Inbox deletion wireframe">
+        <rect width="1200" height="600" fill="#f8fafc"/>
+        <rect x="0" y="0" width="1200" height="56" fill="#0ea5e9"/>
+        <text x="24" y="36" font-size="20" fill="#fff">Inbox</text>
+        <rect x="24" y="84" width="920" height="40" fill="#ffffff" stroke="#e2e8f0" rx="8"/>
+        <rect x="960" y="84" width="216" height="40" fill="#ef4444" rx="8"/>
+        <text x="974" y="110" font-size="12" fill="#fff">Delete Selected</text>
+        <rect x="24" y="142" width="1152" height="56" fill="#ffffff" stroke="#e2e8f0" rx="8"/>
+        <rect x="36" y="158" width="16" height="16" fill="#0ea5e9" rx="2"/>
+        <rect x="64" y="154" width="960" height="24" fill="#e2e8f0" rx="4"/>
+        <text x="64" y="198" font-size="12" fill="#64748b">Read direct message (deletable)</text>
+        <rect x="24" y="208" width="1152" height="56" fill="#ffffff" stroke="#e2e8f0" rx="8"/>
+        <rect x="36" y="224" width="16" height="16" fill="#94a3b8" rx="2"/>
+        <rect x="64" y="220" width="960" height="24" fill="#e2e8f0" rx="4"/>
+        <text x="64" y="264" font-size="12" fill="#64748b">Unread or broadcast (not deletable)</text>
+      </svg>
+      <figcaption>Inbox with bulk selection for deletable (read direct) messages only.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section">
+    <h2>4) Purge All Users &amp; Related Data</h2>
+    <ul>
+      <li><strong>Command</strong>: <code>php artisan app:purge-all-users</code> <span class="muted">[--force]</span></li>
+      <li>Truncates: <code>message_user_reads, messages, profiles, supervisor_applications, admins, staff, students, users</code></li>
+      <li>Handles foreign keys safely (MySQL)</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Quick Reference</h2>
+    <div class="two-col">
+      <div>
+        <h3>Dashboards</h3>
+        <p><code>/dashboard</code> (role redirect), <code>/admin/dashboard</code>, <code>/staff/dashboard</code>, <code>/user/dashboard</code></p>
+        <h3>Supervisor</h3>
+        <p>Staff: <code>GET/POST /staff/supervisor/apply</code><br/>Admin: <code>GET /admin/supervisors</code>, <code>POST /admin/supervisors/{id}/approve</code>, <code>POST /admin/supervisors/{id}/reject</code></p>
+      </div>
+      <div>
+        <h3>Messaging</h3>
+        <p>Inbox: <code>GET /messages</code><br/>Delete one: <code>DELETE /messages/{id}</code><br/>Bulk: <code>DELETE /messages</code> with <code>message_ids[]</code></p>
+        <h3>Purge</h3>
+        <p><code>php artisan app:purge-all-users</code> <span class="muted">[--force]</span></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section">
+    <p class="muted">Print to PDF: Open this file in a browser and use <span class="kbd">Ctrl/Cmd + P</span> → Save as PDF. Set margins to Default; enable Background graphics for best results.</p>
+  </footer>
+</div>
+</body>
+</html>

@@ -134,7 +134,7 @@
             <a href="{{ route('admin.users.index') }}" class="px-6 py-3 bg-slate-200 text-slate-700 rounded-xl hover:bg-slate-300 transition font-semibold">
                 Cancel
             </a>
-            <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition font-semibold shadow-lg hover:shadow-xl">
+            <button type="submit" class="px-6 py-3 bg-lime-400 text-green-950 rounded-xl hover:bg-lime-300 transition font-semibold shadow-lg hover:shadow-xl border border-lime-200">
                 <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                 </svg>

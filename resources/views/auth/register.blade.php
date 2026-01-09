@@ -59,14 +59,14 @@
                        required>
             </div>
 
-            <button class="w-full py-3 bg-blue-600 text-white rounded hover:bg-blue-700 font-medium">
+            <button class="w-full py-3 bg-lime-400 text-green-950 rounded hover:bg-lime-300 font-medium border border-lime-200">
                 Register
             </button>
         </form>
 
         <p class="text-center text-gray-600 mt-5 text-sm">
             Already have an account?
-            <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-800 font-medium hover:underline">
+            <a href="{{ route('login') }}" class="text-green-900 hover:text-green-950 font-medium hover:underline">
                 Login
             </a>
         </p>

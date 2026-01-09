@@ -19,23 +19,61 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // No default users - admin will create all users manually
-        // Uncomment below to create a default admin if needed:
-        
-        /*
-        $admin = User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
+        // Create 2 Admins, 2 Staff, 2 Students (users)
+        $users = [];
+
+        // Admins
+        $users['admin1'] = User::create([
+            'name' => 'Admin One',
+            'email' => 'admin1@example.com',
             'password' => Hash::make('password'),
             'role' => 'admin',
             'email_verified_at' => now(),
         ]);
-        Admin::create([
-            'user_id' => $admin->id,
-            'department' => 'Administration',
-            'position' => 'System Administrator',
-            'appointed_date' => now(),
+        $users['admin2'] = User::create([
+            'name' => 'Admin Two',
+            'email' => 'admin2@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+            'email_verified_at' => now(),
         ]);
-        */
+        Admin::create(['user_id' => $users['admin1']->id, 'appointed_date' => now()]);
+        Admin::create(['user_id' => $users['admin2']->id, 'appointed_date' => now()]);
+
+        // Staff
+        $users['staff1'] = User::create([
+            'name' => 'Staff One',
+            'email' => 'staff1@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'staff',
+            'email_verified_at' => now(),
+        ]);
+        $users['staff2'] = User::create([
+            'name' => 'Staff Two',
+            'email' => 'staff2@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'staff',
+            'email_verified_at' => now(),
+        ]);
+        Staff::create(['user_id' => $users['staff1']->id, 'joined_date' => now()]);
+        Staff::create(['user_id' => $users['staff2']->id, 'joined_date' => now()]);
+
+        // Students (users)
+        $users['student1'] = User::create([
+            'name' => 'Student One',
+            'email' => 'student1@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'user',
+            'email_verified_at' => now(),
+        ]);
+        $users['student2'] = User::create([
+            'name' => 'Student Two',
+            'email' => 'student2@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'user',
+            'email_verified_at' => now(),
+        ]);
+        Student::create(['user_id' => $users['student1']->id, 'enrollment_date' => now()]);
+        Student::create(['user_id' => $users['student2']->id, 'enrollment_date' => now()]);
     }
 }

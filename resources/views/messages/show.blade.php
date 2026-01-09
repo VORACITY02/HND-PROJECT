@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     @if($message->is_broadcast)
-                        <span class="px-3 py-1 text-sm bg-purple-100 text-purple-800 rounded-full">Broadcast Message</span>
+                        <span class="px-3 py-1 text-sm bg-lime-100 text-green-950 rounded-full">Broadcast Message</span>
                     @endif
                 </div>
             </div>
@@ -37,8 +37,8 @@
         </div>
 
         @if($message->is_broadcast)
-            <div class="mt-3 p-3 bg-purple-50 border border-purple-200 rounded-lg">
-                <p class="text-sm text-purple-800">
+            <div class="mt-3 p-3 bg-lime-50 border border-lime-200 rounded-lg">
+                <p class="text-sm text-green-950">
                     <strong>Broadcast to:</strong> 
                     @if($message->recipient_type === 'all_users')
                         All Users/Students
@@ -68,7 +68,7 @@
         <div class="mt-8 pt-6 border-t border-slate-200">
             <div class="flex items-center space-x-4">
                 <a href="{{ route('messages.create') }}?reply_to={{ $message->sender_id }}&subject={{ urlencode('Re: ' . $message->subject) }}" 
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all shadow-lg">
+                   class="bg-lime-400 hover:bg-lime-300 text-green-950 px-6 py-3 rounded-lg font-medium transition-all shadow-lg border border-lime-200">
                     <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
                     </svg>

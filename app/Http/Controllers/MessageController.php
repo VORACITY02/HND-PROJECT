@@ -11,6 +11,44 @@ use Illuminate\Support\Facades\DB;
 class MessageController extends Controller
 {
     /**
+     * Delete a single read direct message received by the current user.
+     */
+    public function destroy(Message $message)
+    {
+        $user = Auth::user();
+
+        // Only allow deleting direct messages that the user received and have been read
+        if ($message->is_broadcast || $message->receiver_id !== $user->id) {
+            abort(403, 'You cannot delete this message.');
+        }
+        if (!$message->is_read) {
+            return back()->withErrors(['error' => 'Only read messages can be deleted.']);
+        }
+
+        $message->delete();
+        return redirect()->route('messages.index')->with('success', 'Message deleted.');
+    }
+
+    /**
+     * Bulk delete selected read direct messages received by the current user.
+     */
+    public function bulkDestroy(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'message_ids' => 'required|array',
+            'message_ids.*' => 'integer',
+        ]);
+
+        $count = Message::whereIn('id', $request->message_ids)
+            ->where('receiver_id', $user->id)
+            ->where('is_broadcast', false)
+            ->where('is_read', true)
+            ->delete();
+
+        return redirect()->route('messages.index')->with('success', $count . ' message(s) deleted.');
+    }
+    /**
      * Display the message center.
      */
     public function index()

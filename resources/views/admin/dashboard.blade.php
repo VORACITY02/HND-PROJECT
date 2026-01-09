@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('content_header')
+@endsection
+
 @section('content')
 <!-- Sinister-Professional Admin Dashboard -->
 <div class="mb-8">
@@ -16,7 +19,7 @@
         <div class="flex items-center space-x-4">
             <!-- User Profile Card -->
             <a href="{{ route('profile.edit') }}" class="group">
-                <div class="bg-gradient-to-br from-slate-900 via-purple-900 to-black text-white px-6 py-4 rounded-2xl shadow-2xl hover:shadow-purple-900/50 transition-all transform hover:scale-105 border border-purple-700">
+                <div class="bg-gradient-to-br from-green-950 via-green-900 to-green-950 text-white px-6 py-4 rounded-2xl shadow-2xl hover:shadow-lime-400/20 transition-all transform hover:scale-105 border border-lime-300/25">
                     <div class="flex items-center space-x-4">
                         <div class="relative">
                             <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-slate-700 rounded-full flex items-center justify-center font-bold text-xl border-2 border-blue-500 shadow-md">
@@ -37,7 +40,7 @@
                                 @endif
                             </p>
                         </div>
-                        <svg class="w-6 h-6 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-6 h-6 text-lime-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                         </svg>
                     </div>
@@ -83,7 +86,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
     <!-- Total Users -->
     <div class="group relative overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl shadow-lg hover:shadow-blue-900/30 transition-all border border-slate-700">
-        <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-lime-300/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         <div class="relative p-6">
             <div class="flex items-center justify-between mb-4">
                 <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center shadow-md">
@@ -161,14 +164,14 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <a href="{{ route('admin.users.create') }}" class="group relative overflow-hidden bg-gradient-to-br from-blue-900 to-blue-800 p-5 rounded-lg hover:from-blue-800 hover:to-blue-700 transition-all shadow-md hover:shadow-lg border border-blue-700">
             <div class="flex items-start">
-                <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4 shadow-lg">
+                <div class="w-12 h-12 bg-lime-400 rounded-lg flex items-center justify-center mr-4 shadow-lg">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                     </svg>
                 </div>
                 <div>
                     <p class="font-bold text-white text-lg mb-1">Add New User</p>
-                    <p class="text-sm text-purple-300">Create new account</p>
+                    <p class="text-sm text-lime-100/70">Create new account</p>
                 </div>
             </div>
         </a>
@@ -187,7 +190,21 @@
             </div>
         </a>
 
-        <a href="{{ route('messages.index') }}" class="group relative overflow-hidden bg-gradient-to-br from-blue-900 to-blue-800 p-6 rounded-xl hover:from-blue-800 hover:to-blue-700 transition-all shadow-xl hover:shadow-2xl hover:shadow-blue-900/50 transform hover:scale-105 border border-blue-700">
+       <a href="{{ route('admin.supervisors.index') }}" class="group relative overflow-hidden bg-gradient-to-br from-amber-900 to-amber-800 p-6 rounded-xl hover:from-amber-800 hover:to-amber-700 transition-all shadow-xl hover:shadow-2xl hover:shadow-amber-900/50 transform hover:scale-105 border border-amber-700">
+           <div class="flex items-start">
+               <div class="w-12 h-12 bg-amber-600 rounded-lg flex items-center justify-center mr-4 shadow-lg">
+                   <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                   </svg>
+               </div>
+               <div>
+                   <p class="font-bold text-white text-lg mb-1">Manage Supervisor Applications</p>
+                   <p class="text-sm text-amber-300">Approve or reject</p>
+               </div>
+           </div>
+       </a>
+
+        <a href="{{ route('admin.work-queue') }}" class="group relative overflow-hidden bg-gradient-to-br from-blue-900 to-blue-800 p-6 rounded-xl hover:from-blue-800 hover:to-blue-700 transition-all shadow-xl hover:shadow-2xl hover:shadow-blue-900/50 transform hover:scale-105 border border-blue-700">
             <div class="flex items-start">
                 <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4 shadow-lg">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -195,24 +212,66 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="font-bold text-white text-lg mb-1">System Reports</p>
-                    <p class="text-sm text-blue-300">Analytics & insights</p>
+                    <p class="font-bold text-white text-lg mb-1">Work Queue</p>
+                    <p class="text-sm text-blue-300">Requests, confirmations & tracking</p>
                 </div>
             </div>
         </a>
     </div>
 </div>
 
+<!-- Admin Work Queue -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+  <div class="bg-white p-6 rounded-lg shadow">
+    <div class="flex items-center justify-between">
+      <h2 class="text-xl font-bold">Pending Supervision Requests</h2>
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-amber-100 text-amber-800">
+        {{ $pendingRequestsCount ?? 0 }} pending
+      </span>
+    </div>
+
+    <div class="mt-4">
+      @if(($pendingRequestsCount ?? 0) > 0)
+        <ul class="divide-y">
+          @foreach(($pendingRequests ?? []) as $r)
+            <li class="py-3 flex items-center justify-between gap-4">
+              <div class="min-w-0">
+                <p class="font-semibold text-slate-800 truncate">{{ $r->student?->name }} → {{ $r->requestedSupervisor?->name }}</p>
+                <p class="text-sm text-slate-500 truncate">{{ $r->note }}</p>
+              </div>
+              <a class="text-green-900 font-semibold text-sm whitespace-nowrap" href="{{ route('admin.assignments.index') }}">
+                Review
+              </a>
+            </li>
+          @endforeach
+        </ul>
+      @else
+        <p class="text-slate-600">No pending requests assigned to you.</p>
+      @endif
+
+      <div class="mt-4">
+        <a href="{{ route('admin.assignments.index') }}" class="inline-block bg-emerald-600 text-white px-4 py-2 rounded">Open Requests</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-bold mb-3">Reports & Analytics</h2>
+    <p class="text-slate-600 mb-4">Track individual student progress and review submissions.</p>
+    <a href="{{ route('admin.tracking.index') }}" class="inline-block bg-lime-400 text-green-950 px-4 py-2 rounded border border-lime-200">Open Tracking</a>
+  </div>
+</div>
+
 <!-- Recent Users - Dark Theme -->
 <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-700">
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-3xl font-bold text-white flex items-center">
-            <svg class="w-8 h-8 mr-3 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-8 h-8 mr-3 text-lime-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             Recent Users
         </h2>
-        <a href="{{ route('admin.users.index') }}" class="text-purple-400 hover:text-purple-300 font-semibold flex items-center transition-colors group">
+        <a href="{{ route('admin.users.index') }}" class="text-lime-300 hover:text-lime-200 font-semibold flex items-center transition-colors group">
             View All
             <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
@@ -227,9 +286,9 @@
     @if($recentUsers->count() > 0)
         <div class="space-y-3">
             @foreach($recentUsers as $recentUser)
-                <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-xl hover:bg-slate-700/50 transition-all border border-slate-700 hover:border-purple-700">
+                <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-xl hover:bg-slate-700/50 transition-all border border-slate-700 hover:border-lime-400/40">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                        <div class="w-10 h-10 bg-gradient-to-br from-lime-400 to-yellow-300 rounded-full flex items-center justify-center shadow-lg">
                             <span class="text-white font-bold">{{ substr($recentUser->name, 0, 1) }}</span>
                         </div>
                         <div>

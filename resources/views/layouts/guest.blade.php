@@ -6,7 +6,7 @@
     <title>{{ $title ?? 'Auth' }} - Internship Management</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="min-h-screen bg-gradient-to-br from-sky-50 via-sky-100 to-slate-100">
 
     @yield('content')
 

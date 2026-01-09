@@ -13,7 +13,8 @@ class RoleMiddleware
             return redirect('/login');
         }
 
-        if (Auth::user()->role !== $role) {
+        // Allow admins to access all role-restricted routes
+        if (Auth::user()->role !== $role && Auth::user()->role !== 'admin') {
             abort(403, 'Unauthorized');
         }
 

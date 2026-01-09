@@ -41,7 +41,7 @@
                             <div class="flex items-center gap-2 mb-1">
                                 @if($message->is_broadcast)
                                     <span class="font-semibold text-slate-800">Broadcast Message</span>
-                                    <span class="px-2 py-1 text-xs bg-purple-100 text-purple-800 rounded-full">
+                                    <span class="px-2 py-1 text-xs bg-lime-100 text-green-950 rounded-full">
                                         @if($message->recipient_type === 'all_users')
                                             To: All Users
                                         @elseif($message->recipient_type === 'all_staff')
