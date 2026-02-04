@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\PaymentAccount;
 use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -170,4 +171,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(PersonalData::class);
     }
+
+    public function paymentAccount()
+    {
+        return $this->hasOne(PaymentAccount::class);
+    }
 }
+

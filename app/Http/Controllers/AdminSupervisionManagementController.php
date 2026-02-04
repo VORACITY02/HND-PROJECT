@@ -95,6 +95,13 @@ class AdminSupervisionManagementController extends Controller
 
     public function destroy(SupervisorAssignment $assignment)
     {
+        // Fallback for missing route model binding when middleware is disabled.
+        if (!$assignment->exists) {
+            $param = request()->route('assignment');
+            $id = is_object($param) ? ($param->id ?? null) : $param;
+            $assignment = SupervisorAssignment::query()->findOrFail($id);
+        }
+
         abort_unless(Auth::user()?->role === 'admin', 403);
         abort_unless((int) $assignment->assigned_by_admin_id === (int) Auth::id(), 403);
 
@@ -105,7 +112,16 @@ class AdminSupervisionManagementController extends Controller
 
     public function transfer(SupervisorAssignment $assignment, Request $request)
     {
+        // When tests call withoutMiddleware(), Laravel's SubstituteBindings middleware is disabled,
+        // so route model binding does not run. In that scenario, the type-hinted model is an empty instance.
+        if (!$assignment->exists) {
+            $param = $request->route('assignment');
+            $id = is_object($param) ? ($param->id ?? null) : $param;
+            $assignment = SupervisorAssignment::query()->findOrFail($id);
+        }
+
         $this->authorize('transfer', $assignment);
+
         // Allow any admin to transfer assignments (not only the admin who originally assigned).
         // Some older rows may have active as NULL; treat as active.
         abort_unless($assignment->active || $assignment->active === null, 400, 'Only active assignments can be transferred.');

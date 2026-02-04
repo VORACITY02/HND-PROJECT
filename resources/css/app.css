@@ -11,81 +11,146 @@
 }
 
 /*
-  Global color theme override (Lemon/Lime/Forest)
-  ------------------------------------------------
+  Global blue theme override
+  -------------------------
   This project uses Tailwind utility classes heavily in Blade views.
-  Instead of rewriting every view, we remap the most common existing
-  color utilities (blue/slate/sky/emerald/red) to the new palette.
+  Instead of rewriting every view, we provide a consistent blue-first palette by:
+  - Setting page + panel colors via CSS variables (light + dark).
+  - Remapping commonly used utilities (slate/gray backgrounds + red accents) into blue accents.
 
-  Because this CSS is loaded after Tailwind, these rules override the
-  generated utilities (same specificity, later in the cascade).
+  Result: even views that still contain `bg-red-*` / `text-red-*` classes render as blue.
 */
+
+/* Default = light */
 :root {
-  /* Sky / Ocean theme */
-  --ocean-950: #082f49; /* deep navy */
-  --ocean-900: #0c4a6e;
-  --ocean-800: #075985;
-  --sky-50: #f0f9ff;
-  --sky-100: #e0f2fe;
-  --sky-200: #bae6fd;
-  --sky-300: #7dd3fc;
-  --sky-400: #38bdf8;
-  --sky-500: #0ea5e9;
-  --sun-100: #fef9c3; /* small warm highlight */
-  --sun-200: #fde68a;
+  --rb-bg: #f0f7ff;             /* very light blue tint */
+  --rb-bg-2: #dbeafe;           /* blue-100 */
+  --rb-panel: #ffffff;
+  --rb-panel-2: #eff6ff;        /* blue-50 */
+  --rb-border: rgb(37 99 235 / 0.22); /* blue-ish border */
+
+  --rb-text: #0b1220;
+  --rb-muted: rgb(11 18 32 / 0.72);
+  --rb-muted-2: rgb(11 18 32 / 0.58);
+  --rb-subtle: rgb(11 18 32 / 0.46);
+
+  /* Accent (kept var names for compatibility with existing remap rules) */
+  --rb-red: #2563eb;            /* blue-600 */
+  --rb-red-2: #1d4ed8;          /* blue-700 */
+  --rb-red-3: #1e40af;          /* blue-800 */
+
+  --rb-red-soft: rgb(37 99 235 / 0.10);
+  --rb-red-soft-2: rgb(37 99 235 / 0.16);
+
+  --rb-warn: #b45309;
+  --rb-success: #15803d;
 }
 
-/* Backgrounds */
-.bg-slate-50, .bg-gray-50 { background-color: var(--sky-50) !important; }
-.bg-slate-100, .bg-gray-100 { background-color: var(--sky-100) !important; }
-.bg-slate-800, .bg-gray-800 { background-color: var(--ocean-950) !important; }
-.bg-slate-900, .bg-gray-900 { background-color: var(--ocean-950) !important; }
+/* Dark mode, still blue (avoid pure black UI) */
+:root[data-theme="dark"] {
+  --rb-bg: #061325;
+  --rb-bg-2: #0b2345;
+  --rb-panel: #0b1d37;
+  --rb-panel-2: #0d264a;
+  --rb-border: rgb(96 165 250 / 0.26); /* blue-400 */
 
-.bg-blue-600, .bg-sky-600 { background-color: var(--sky-500) !important; }
-.bg-blue-700, .bg-sky-700 { background-color: var(--sky-400) !important; }
-.bg-emerald-600, .bg-green-600 { background-color: var(--sky-500) !important; }
+  --rb-text: #f5faff;
+  --rb-muted: rgb(245 250 255 / 0.80);
+  --rb-muted-2: rgb(245 250 255 / 0.64);
+  --rb-subtle: rgb(245 250 255 / 0.52);
 
-/* Subtle background variants used with opacity */
-.bg-blue-600\/20, .bg-sky-600\/20, .bg-blue-500\/20, .bg-sky-500\/20 { background-color: rgb(14 165 233 / 0.16) !important; }
-.bg-blue-600\/80, .bg-sky-600\/80 { background-color: rgb(14 165 233 / 0.30) !important; }
-.bg-slate-700\/50 { background-color: rgb(12 74 110 / 0.50) !important; }
-.bg-slate-700\/60 { background-color: rgb(12 74 110 / 0.55) !important; }
-.bg-slate-600\/80 { background-color: rgb(12 74 110 / 0.45) !important; }
+  --rb-red: #3b82f6;            /* blue-500 */
+  --rb-red-2: #60a5fa;          /* blue-400 */
+  --rb-red-3: #2563eb;          /* blue-600 */
 
-/* Error/Warning backgrounds (keep readable) */
-.bg-red-50, .bg-red-100 { background-color: #fff7ed !important; }
-.bg-yellow-50, .bg-yellow-100 { background-color: #fffbeb !important; }
+  --rb-red-soft: rgb(59 130 246 / 0.16);
+  --rb-red-soft-2: rgb(59 130 246 / 0.22);
 
-/* Text */
-.text-slate-900, .text-gray-900 { color: var(--ocean-950) !important; }
-.text-slate-800, .text-gray-800 { color: var(--ocean-950) !important; }
-.text-slate-700, .text-gray-700 { color: var(--ocean-900) !important; }
-.text-slate-600, .text-gray-600 { color: rgb(12 74 110 / 0.85) !important; }
-.text-slate-500, .text-gray-500 { color: rgb(12 74 110 / 0.70) !important; }
-.text-slate-400, .text-gray-400 { color: rgb(8 145 178 / 0.55) !important; }
-.text-slate-300, .text-gray-300 { color: rgb(8 145 178 / 0.75) !important; }
+  --rb-warn: #f59e0b;
+  --rb-success: #22c55e;
+}
 
-.text-blue-400, .text-blue-500, .text-sky-300, .text-sky-400 { color: var(--sky-400) !important; }
-.text-blue-600, .text-sky-600 { color: var(--ocean-900) !important; }
-.text-emerald-400, .text-green-700 { color: var(--ocean-900) !important; }
-.text-red-700 { color: var(--ocean-950) !important; }
+:root[data-theme="light"] {
+  /* Keep explicit light for toggle */
+}
+
+/* Base page styling */
+body { background-color: var(--rb-bg); color: var(--rb-text); }
+
+/* Background utility remaps */
+.bg-slate-50, .bg-gray-50 { background-color: var(--rb-bg) !important; }
+.bg-slate-100, .bg-gray-100 { background-color: var(--rb-bg-2) !important; }
+.bg-slate-200, .bg-gray-200 { background-color: var(--rb-panel-2) !important; }
+.bg-white, .bg-white\/80, .bg-white\/90 { background-color: var(--rb-panel) !important; }
+
+/* Dark backgrounds that appear in views -> shift to blue-tinted panels */
+.bg-slate-800, .bg-gray-800,
+.bg-slate-900, .bg-gray-900, .bg-slate-950 { background-color: var(--rb-panel) !important; }
+
+/* Opacity backgrounds */
+.bg-white\/5, .bg-white\/10 { background-color: var(--rb-red-soft) !important; }
+.bg-black\/30, .bg-black\/60, .bg-black\/70 { background-color: var(--rb-panel) !important; }
+
+/* Make non-blue accents also feel "blue-first" */
+.bg-emerald-600, .bg-green-600, .bg-lime-400 { background-color: var(--rb-red) !important; color: #fff !important; }
+.bg-emerald-700, .bg-green-700 { background-color: var(--rb-red-2) !important; color: #fff !important; }
+
+/* Subtle accent backgrounds */
+.bg-red-600\/20, .bg-red-500\/20 { background-color: var(--rb-red-soft-2) !important; }
+
+/* Status backgrounds */
+.bg-red-50, .bg-red-100 { background-color: var(--rb-red-soft) !important; }
+.bg-yellow-50, .bg-yellow-100 { background-color: rgb(245 158 11 / 0.14) !important; }
+.bg-green-50, .bg-emerald-50 { background-color: rgb(34 197 94 / 0.12) !important; }
+
+/* Text utility remaps */
+.text-slate-900, .text-gray-900, .text-slate-800, .text-gray-800 { color: var(--rb-text) !important; }
+.text-slate-700, .text-gray-700 { color: var(--rb-muted) !important; }
+.text-slate-600, .text-gray-600 { color: var(--rb-muted-2) !important; }
+.text-slate-500, .text-gray-500,
+.text-slate-400, .text-gray-400 { color: var(--rb-subtle) !important; }
+.text-slate-300, .text-gray-300 { color: var(--rb-muted-2) !important; }
+
+/* Red utility classes now render as blue accents */
+.text-red-900, .text-red-800, .text-red-700, .text-red-600,
+.text-rose-900, .text-rose-800, .text-rose-700, .text-rose-600 { color: var(--rb-red-2) !important; }
 
 /* Borders */
-.border-slate-200, .border-gray-200 { border-color: rgb(12 74 110 / 0.15) !important; }
-.border-slate-300, .border-gray-300 { border-color: rgb(12 74 110 / 0.20) !important; }
-.border-slate-600 { border-color: rgb(125 211 252 / 0.25) !important; }
-.border-blue-700, .border-blue-500, .border-sky-500, .border-sky-700 { border-color: rgb(125 211 252 / 0.45) !important; }
-.border-emerald-500 { border-color: rgb(125 211 252 / 0.45) !important; }
-.border-red-300 { border-color: rgb(251 191 36 / 0.55) !important; }
-.border-yellow-300 { border-color: rgb(251 191 36 / 0.55) !important; }
+.border-slate-200, .border-gray-200,
+.border-slate-300, .border-gray-300,
+.border-white\/10, .border-black\/10 { border-color: var(--rb-border) !important; }
+.border-slate-600 { border-color: var(--rb-border) !important; }
+.border-red-200, .border-red-300, .border-rose-200 { border-color: rgb(37 99 235 / 0.30) !important; }
+.border-yellow-300 { border-color: rgb(245 158 11 / 0.40) !important; }
 
-/* Buttons that were red become warm amber (still readable) */
-.bg-red-600, .bg-red-500 { background-color: #fbbf24 !important; color: var(--ocean-950) !important; }
-.hover\:bg-red-600:hover, .hover\:bg-red-500:hover { background-color: #fcd34d !important; }
+/* Buttons: treat "red" as the primary blue */
+.bg-red-600, .bg-red-500 { background-color: var(--rb-red) !important; color: #fff !important; }
+.hover\:bg-red-600:hover, .hover\:bg-red-500:hover { background-color: var(--rb-red-2) !important; }
 
-/* Links */
-.text-blue-600, .text-blue-700, .hover\:text-blue-700:hover { color: var(--ocean-900) !important; }
-.hover\:bg-blue-700:hover, .hover\:bg-blue-600:hover, .hover\:bg-sky-700:hover, .hover\:bg-sky-600:hover { background-color: var(--sky-400) !important; }
+/* Outline buttons that were sky-based or red-based */
+.border-sky-300, .border-sky-200, .border-sky-400\/20, .border-sky-400\/15,
+.border-red-200, .border-red-300 { border-color: rgb(37 99 235 / 0.35) !important; }
 
-/* Focus rings (optional polish) */
-.focus\:ring-blue-500:focus, .focus\:ring-sky-500:focus { --tw-ring-color: rgb(14 165 233 / 0.45) !important; }
+/* Focus rings */
+.focus\:ring-blue-500:focus, .focus\:ring-sky-500:focus { --tw-ring-color: rgb(37 99 235 / 0.45) !important; }
+
+/* Inputs */
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea { color-scheme: dark; }
+:root[data-theme="light"] input,
+:root[data-theme="light"] select,
+:root[data-theme="light"] textarea { color-scheme: light; }
+
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], select, textarea {
+  background-color: var(--rb-panel);
+  border-color: var(--rb-border);
+  color: var(--rb-text);
+}
+
+/* Table headers */
+thead.bg-slate-50 { background-color: var(--rb-panel-2) !important; }
+
+/* Shadows: keep subtle in light mode */
+.shadow-sm { box-shadow: 0 1px 2px rgb(0 0 0 / 0.08) !important; }
+.shadow-lg { box-shadow: 0 10px 15px rgb(0 0 0 / 0.12) !important; }

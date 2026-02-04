@@ -35,4 +35,19 @@ return [
         ],
     ],
 
+    'payment_simulator' => [
+        'base_url' => env('PAYMENT_SIMULATOR_BASE_URL', ''),
+        'api_key' => env('PAYMENT_SIMULATOR_API_KEY', ''),
+    ],
+
+    'rabbitmaid' => [
+        // Full endpoint (note: docs mention /api/v1/*, but examples show /v1/*).
+        'endpoint' => env('RABBITMAID_API_ENDPOINT', ''),
+        'application_key' => env('RABBITMAID_APPLICATION_KEY', ''),
+        'access_key' => env('RABBITMAID_ACCESS_KEY', ''),
+        'secret_key' => env('RABBITMAID_SECRET_KEY', ''),
+        // Which application wallet to operate on
+        'service' => env('RABBITMAID_SERVICE', 'mtn'),
+    ],
+
 ];

@@ -12,7 +12,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Bind payment gateway implementation.
+        $this->app->bind(\App\Services\Payment\PaymentGateway::class, function ($app) {
+            /** @var \App\Services\Payment\PaymentConfig $config */
+            $config = $app->make(\App\Services\Payment\PaymentConfig::class);
+            $driver = strtolower(trim($config->paymentDriver()));
+
+            return match ($driver) {
+                'rabbitmaid' => $app->make(\App\Services\Payment\RabbitMaidPaymentGateway::class),
+                default => $app->make(\App\Services\Payment\SimulatorPaymentGateway::class),
+            };
+        });
     }
 
     /**

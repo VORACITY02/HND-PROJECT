@@ -111,6 +111,10 @@
             <p class="font-semibold text-slate-900 group-hover:text-sky-900">My Tasks</p>
             <p class="text-sm text-slate-500">View and submit assigned tasks</p>
         </a>
+        <a href="{{ route('user.payments.index') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 hover:border-sky-300 transition">
+            <p class="font-semibold text-slate-900 group-hover:text-sky-900">My Payments</p>
+            <p class="text-sm text-slate-500">Pay internship fees and track status</p>
+        </a>
         <a href="{{ route('profile.personal') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 hover:border-sky-300 transition">
             <p class="font-semibold text-slate-900 group-hover:text-sky-900">Personal Data</p>
             <p class="text-sm text-slate-500">View saved personal data</p>

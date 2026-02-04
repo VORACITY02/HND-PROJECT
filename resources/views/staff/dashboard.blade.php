@@ -132,6 +132,22 @@
 
 <!-- Quick Actions -->
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <a href="{{ route('staff.payments.index') }}" class="group relative overflow-hidden bg-gradient-to-br from-sky-900 to-sky-800 p-6 rounded-xl hover:from-sky-800 hover:to-sky-700 transition-all shadow-xl hover:shadow-2xl hover:shadow-sky-900/50 transform hover:scale-105 border border-sky-700">
+        <div class="flex items-start">
+            <div class="w-12 h-12 bg-sky-600 rounded-lg flex items-center justify-center mr-4 shadow-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2v1h6v-1c0-1.105-1.343-2-3-2z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11h8v8H8z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11V8a5 5 0 0110 0v3"/>
+                </svg>
+            </div>
+            <div>
+                <p class="font-bold text-white text-lg mb-1">My Payouts</p>
+                <p class="text-sm text-sky-300">Request payout</p>
+            </div>
+        </div>
+    </a>
+
     <a href="{{ route('messages.create') }}" class="group relative overflow-hidden bg-gradient-to-br from-emerald-900 to-emerald-800 p-6 rounded-xl hover:from-emerald-800 hover:to-emerald-700 transition-all shadow-xl hover:shadow-2xl hover:shadow-emerald-900/50 transform hover:scale-105 border border-emerald-700">
         <div class="flex items-start">
             <div class="w-12 h-12 bg-emerald-600 rounded-lg flex items-center justify-center mr-4 shadow-lg">

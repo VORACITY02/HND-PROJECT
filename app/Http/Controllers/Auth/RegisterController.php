@@ -24,15 +24,22 @@ class RegisterController extends Controller
             'name' => ['required','string','max:255'],
             'email' => ['required','email','max:255','unique:users,email'],
             'password' => ['required','confirmed', Password::min(8)],
+            // Self-registration is limited to students and staff.
+            'role' => ['sometimes', 'string', 'in:user,staff'],
         ]);
 
         DB::beginTransaction();
         try {
+            $role = $request->input('role', 'user');
+            if (!in_array($role, ['user', 'staff'], true)) {
+                $role = 'user';
+            }
+
             $user = User::create([
                 'name' => $request->input('name'),
                 'email'=> $request->input('email'),
                 'password' => Hash::make($request->input('password')),
-                'role' => $request->input('role', 'user'),
+                'role' => $role,
             ]);
 
             // Create role-specific profile

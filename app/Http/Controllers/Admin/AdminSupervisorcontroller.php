@@ -55,6 +55,13 @@ class AdminSupervisorController extends Controller
 
     public function revoke(SupervisorApplication $application)
     {
+        // When tests call withoutMiddleware(), SubstituteBindings is disabled, so the injected model can be empty.
+        if (!$application->exists) {
+            $param = request()->route('application');
+            $id = is_object($param) ? ($param->id ?? null) : $param;
+            $application = SupervisorApplication::query()->findOrFail($id);
+        }
+
         // Revoke supervisor capability for this staff member.
         // Keep the staff role as 'staff' (supervisor is controlled by SupervisorApplication status).
         abort_unless(auth()->user()?->role === 'admin', 403);

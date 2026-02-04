@@ -33,14 +33,14 @@
 
             <div class="mb-4">
                 <label class="block text-gray-700 font-medium mb-1">Full Name</label>
-                <input type="text" name="name"
+                <input type="text" name="name" value="{{ old('name') }}"
                        class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                        required>
             </div>
 
             <div class="mb-4">
                 <label class="block text-gray-700 font-medium mb-1">Email</label>
-                <input type="email" name="email"
+                <input type="email" name="email" value="{{ old('email') }}"
                        class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                        required>
             </div>
@@ -52,6 +52,15 @@
                        required>
             </div>
 
+            <div class="mb-4">
+                <label class="block text-gray-700 font-medium mb-1">Account Type</label>
+                <select name="role" class="w-full p-3 border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="user" selected>Student</option>
+                    <option value="staff">Staff</option>
+                </select>
+                <div class="text-xs text-gray-500 mt-1">Admins are created by existing admins from the admin dashboard.</div>
+            </div>
+
             <div class="mb-6">
                 <label class="block text-gray-700 font-medium mb-1">Confirm Password</label>
                 <input type="password" name="password_confirmation"
@@ -59,14 +68,14 @@
                        required>
             </div>
 
-            <button class="w-full py-3 bg-lime-400 text-green-950 rounded hover:bg-lime-300 font-medium border border-lime-200">
+            <button class="w-full py-3 bg-red-600 text-white rounded hover:bg-red-500 font-semibold border border-red-400/30">
                 Register
             </button>
         </form>
 
         <p class="text-center text-gray-600 mt-5 text-sm">
             Already have an account?
-            <a href="{{ route('login') }}" class="text-green-900 hover:text-green-950 font-medium hover:underline">
+            <a href="{{ route('login') }}" class="text-white hover:text-white/90 font-semibold hover:underline">
                 Login
             </a>
         </p>

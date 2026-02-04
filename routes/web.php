@@ -40,6 +40,20 @@ Route::middleware(['auth','role:admin'])->group(function () {
 
     Route::get('/admin/tracking', [\App\Http\Controllers\AdminTrackingController::class,'index'])->name('admin.tracking.index');
     Route::get('/admin/tracking/{student}', [\App\Http\Controllers\AdminTrackingController::class,'show'])->name('admin.tracking.show');
+
+    // Payments (admin-only)
+    Route::get('/admin/payments', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'dashboard'])->name('admin.payments.dashboard');
+    Route::get('/admin/payments/students', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'studentsIndex'])->name('admin.payments.students');
+    Route::post('/admin/payments/students/{student}/charge', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'chargeStudent'])->name('admin.payments.students.charge');
+
+    Route::get('/admin/payments/staff', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'staffIndex'])->name('admin.payments.staff');
+    Route::post('/admin/payments/staff/{staff}/pay', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'payStaff'])->name('admin.payments.staff.pay');
+
+    Route::post('/admin/payments/users/{user}/account', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'createPaymentAccount'])->name('admin.payments.users.account.create');
+
+    Route::get('/admin/payments/settings', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'settings'])->name('admin.payments.settings');
+    Route::post('/admin/payments/settings', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'updateSettings'])->name('admin.payments.settings.update');
+    Route::post('/admin/payments/settings/system-account', [\App\Http\Controllers\Admin\AdminPaymentController::class, 'createSystemAccount'])->name('admin.payments.settings.system-account');
 });
 
 // Staff Routes
@@ -47,6 +61,11 @@ Route::middleware(['auth','role:staff'])->group(function () {
     Route::get('/staff/dashboard', [DashboardController::class,'staffDashboard'])->name('staff.dashboard');
     Route::get('/staff/supervisor/apply',[SupervisorApplicationController::class, 'create'])->name('staff.supervisor.apply');
     Route::post('/staff/supervisor/apply',[SupervisorApplicationController::class, 'store'])->name('staff.supervisor.apply.store');
+
+    // Payments (staff self-service)
+    Route::get('/staff/payments', [\App\Http\Controllers\StaffPaymentController::class, 'index'])->name('staff.payments.index');
+    Route::post('/staff/payments/account', [\App\Http\Controllers\StaffPaymentController::class, 'createAccount'])->name('staff.payments.account.create');
+    Route::post('/staff/payments/request', [\App\Http\Controllers\StaffPaymentController::class, 'requestPayout'])->name('staff.payments.request');
 
     Route::get('/staff/tasks', [\App\Http\Controllers\SupervisorTaskController::class,'index'])->name('staff.tasks.index');
     Route::get('/staff/tasks/create', [\App\Http\Controllers\SupervisorTaskController::class,'create'])->name('staff.tasks.create');
@@ -66,6 +85,11 @@ Route::middleware(['auth','role:user'])->group(function () {
     Route::post('/user/supervision/request', [\App\Http\Controllers\StudentSupervisionController::class,'store'])->name('user.supervision.request.store');
     Route::get('/user/tasks', [\App\Http\Controllers\StudentTaskController::class,'index'])->name('user.tasks.index');
     Route::post('/user/tasks/{task}/submit', [\App\Http\Controllers\StudentSubmissionController::class,'store'])->name('user.tasks.submit');
+
+    // Payments (student self-service)
+    Route::get('/user/payments', [\App\Http\Controllers\StudentPaymentController::class, 'index'])->name('user.payments.index');
+    Route::post('/user/payments/account', [\App\Http\Controllers\StudentPaymentController::class, 'createAccount'])->name('user.payments.account.create');
+    Route::post('/user/payments/pay', [\App\Http\Controllers\StudentPaymentController::class, 'pay'])->name('user.payments.pay');
 });
 
 // Message Routes (Available to all authenticated users)
