@@ -23,8 +23,7 @@ class AdminSupervisorController extends Controller
     {
         $application->update(['status' => 'approved']);
 
-        // Notify staff
-        \App\Models\Message::create([
+        \\App\\Models\\Message::create([
             'sender_id' => auth()->id(),
             'receiver_id' => $application->staff_id,
             'subject' => 'Supervisor Application Approved',
@@ -40,8 +39,7 @@ class AdminSupervisorController extends Controller
     {
         $application->update(['status' => 'rejected']);
 
-        // Notify staff
-        \App\Models\Message::create([
+        \\App\\Models\\Message::create([
             'sender_id' => auth()->id(),
             'receiver_id' => $application->staff_id,
             'subject' => 'Supervisor Application Rejected',
@@ -55,26 +53,21 @@ class AdminSupervisorController extends Controller
 
     public function revoke(SupervisorApplication $application)
     {
-        // When tests call withoutMiddleware(), SubstituteBindings is disabled, so the injected model can be empty.
         if (!$application->exists) {
             $param = request()->route('application');
             $id = is_object($param) ? ($param->id ?? null) : $param;
             $application = SupervisorApplication::query()->findOrFail($id);
         }
 
-        // Revoke supervisor capability for this staff member.
-        // Keep the staff role as 'staff' (supervisor is controlled by SupervisorApplication status).
         abort_unless(auth()->user()?->role === 'admin', 403);
 
         $application->update(['status' => 'rejected']);
 
-        // Deactivate any active assignments so the supervisor no longer sees students on dashboard.
-        \App\Models\SupervisorAssignment::where('supervisor_id', $application->staff_id)
+        \\App\\Models\\SupervisorAssignment::where('supervisor_id', $application->staff_id)
             ->where('active', true)
             ->update(['active' => false]);
 
-        // Archive group tasks belonging to this supervisor (student-specific tasks can be transferred separately).
-        \App\Models\InternshipTask::where('supervisor_id', $application->staff_id)
+        \\App\\Models\\InternshipTask::where('supervisor_id', $application->staff_id)
             ->whereNull('assigned_student_id')
             ->delete();
 

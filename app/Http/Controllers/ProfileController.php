@@ -11,9 +11,6 @@ use App\Models\PersonalData;
 
 class ProfileController extends Controller
 {
-    /**
-     * Show profile edit form.
-     */
     public function edit()
     {
         return view('profile.edit', [
@@ -23,7 +20,6 @@ class ProfileController extends Controller
 
     public function personalData()
     {
-        // some views expect this variable
         $hasPersonalDataTable = \Illuminate\Support\Facades\Schema::hasTable('personal_data');
         return view('profile.personal-data', compact('hasPersonalDataTable'));
     }
@@ -120,7 +116,6 @@ class ProfileController extends Controller
             'password' => ['nullable', 'confirmed', Password::min(8)],
         ]);
 
-        // Check current password if trying to update password
         if ($request->filled('password')) {
             if (!Hash::check($request->current_password, $user->password)) {
                 return back()->withErrors(['current_password' => 'Current password is incorrect']);
@@ -135,9 +130,6 @@ class ProfileController extends Controller
         return back()->with('status', 'Profile updated successfully!');
     }
 
-    /**
-     * Delete account.
-     */
     public function destroy(Request $request)
     {
         $request->validate([

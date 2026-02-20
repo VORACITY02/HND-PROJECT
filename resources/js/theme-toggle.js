@@ -8,7 +8,6 @@ function applyTheme(theme) {
 function getPreferredTheme() {
   const stored = localStorage.getItem(THEME_KEY);
   if (stored === 'light' || stored === 'dark') return stored;
-  // Default to light to match the red-first design.
   return 'light';
 }
 
@@ -24,7 +23,6 @@ export function initThemeToggle() {
     localStorage.setItem(THEME_KEY, next);
     applyTheme(next);
 
-    // Optional: update label
     const label = btn.querySelector('[data-theme-label]');
     if (label) label.textContent = next === 'dark' ? 'Dark' : 'Light';
   });

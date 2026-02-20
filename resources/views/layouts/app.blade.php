@@ -41,36 +41,27 @@
         }
    @endphp
 
-    <!-- Top Navigation (symmetrical 3-column) -->
-    <nav class="bg-white/80 backdrop-blur border-b border-blue-200 text-slate-900 shadow-sm">
+    <nav class="bg-white/80 backdrop-blur border-b border-blue-200 text-slate-900 shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-3 py-3 md:py-4">
-                <!-- Left: Brand -->
-                <div class="flex items-center gap-3 min-w-0">
+            <div class="flex items-center justify-between gap-4 py-3 flex-nowrap overflow-x-auto">
+                <div class="flex items-center gap-3 shrink-0">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center shadow-sm border border-blue-200 shrink-0">
                         <span class="text-white font-bold text-sm">IM</span>
                     </div>
-                    <div class="min-w-0">
-                        <a href="{{ $brandHref }}" class="block truncate text-lg font-bold tracking-wide hover:text-blue-700">
-                            Internship Management
+                    <a href="{{ $brandHref }}" class="text-lg font-bold tracking-wide hover:text-blue-700 whitespace-nowrap">
+                        Internship Management
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-2 flex-nowrap overflow-x-auto">
+                    @foreach($centerLinks as $l)
+                        <a href="{{ $l['href'] }}" class="{{ !empty($l['primary']) ? $navBtnPrimary : $navBtn }} whitespace-nowrap">
+                            {{ $l['label'] }}
                         </a>
-                        <p class="text-xs text-blue-700/70 truncate">Fast • Secure • Simple</p>
-                    </div>
+                    @endforeach
                 </div>
 
-                <!-- Center: Primary Nav (always centered) -->
-                <div class="flex justify-center md:justify-center">
-                    <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 overflow-x-auto md:overflow-visible max-w-full pb-1 md:pb-0">
-                        @foreach($centerLinks as $l)
-                            <a href="{{ $l['href'] }}" class="{{ !empty($l['primary']) ? $navBtnPrimary : $navBtn }}">
-                                {{ $l['label'] }}
-                            </a>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Right: User + Actions -->
-                <div class="flex flex-wrap items-center justify-end gap-2 min-w-0">
+                <div class="flex items-center gap-2 shrink-0">
                     @php
                         $onlineUsers = \App\Models\User::online()->count();
                         $user = auth()->user();
@@ -111,11 +102,11 @@
 
                     <a href="{{ route('profile.edit') }}" class="{{ $navBtn }}">Profile</a>
 
-                    <div class="hidden lg:flex items-center gap-2 border border-blue-200 bg-blue-50 rounded-lg px-3 py-2">
-                        <div class="w-7 h-7 bg-blue-100 border border-blue-200 rounded-full flex items-center justify-center">
+                    <div class="hidden sm:flex items-center gap-2 border border-blue-200 bg-blue-50 rounded-lg px-3 py-2 whitespace-nowrap">
+                        <div class="w-7 h-7 bg-blue-100 border border-blue-200 rounded-full flex items-center justify-center shrink-0">
                             <span class="text-blue-800 font-bold text-xs">{{ substr(auth()->user()->name, 0, 1) }}</span>
                         </div>
-                        <div class="min-w-0">
+                        <div class="min-w-0 hidden md:block">
                             <div class="text-xs font-semibold text-slate-900 truncate max-w-[10rem]">{{ auth()->user()->name }}</div>
                             <div class="text-[10px] text-blue-800/70">{{ ucfirst(auth()->user()->role) }} • {{ $onlineUsers }} online</div>
                         </div>

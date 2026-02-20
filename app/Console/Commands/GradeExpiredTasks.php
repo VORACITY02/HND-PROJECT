@@ -30,12 +30,10 @@ class GradeExpiredTasks extends Command
         $created = 0;
 
         foreach ($expiredTasks as $task) {
-            // Determine target students for the task
             $studentIds = [];
             if ($task->assigned_student_id) {
                 $studentIds = [(int) $task->assigned_student_id];
             } else {
-                // group task: all active supervisees of this supervisor at the time of grading
                 $studentIds = SupervisorAssignment::where('supervisor_id', $task->supervisor_id)
                     ->where('active', true)
                     ->pluck('student_id')
@@ -44,7 +42,6 @@ class GradeExpiredTasks extends Command
             }
 
             foreach ($studentIds as $studentId) {
-                // If a submission exists (submitted or graded), do nothing.
                 $existing = TaskSubmission::where('task_id', $task->id)
                     ->where('student_id', $studentId)
                     ->first();

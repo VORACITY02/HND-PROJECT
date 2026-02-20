@@ -98,7 +98,6 @@ class DashboardController extends Controller
         $assignment = SupervisorAssignment::with(['supervisor', 'assignedBy'])
             ->where('student_id', $user->id)
             ->where(function ($q) {
-                // Some older rows may have active as NULL; treat as active.
                 $q->where('active', true)->orWhereNull('active');
             })
             ->orderByDesc('assigned_at')
@@ -110,7 +109,6 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
-        // Also show assignment history for cases where an admin assigns supervision without a student request.
         $assignmentHistory = SupervisorAssignment::with(['supervisor', 'assignedBy'])
             ->where('student_id', $user->id)
             ->orderByDesc('assigned_at')

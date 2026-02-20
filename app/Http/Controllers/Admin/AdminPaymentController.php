@@ -30,7 +30,6 @@ class AdminPaymentController extends Controller
             try {
                 $systemBalance = app(\App\Services\Payment\PaymentGateway::class)->getBalance($systemExternal);
             } catch (\Throwable $e) {
-                // Keep page usable even when gateway is unavailable.
                 $systemBalance = ['balance_cents' => 0, 'currency' => $this->config->currency(), 'error' => $e->getMessage()];
             }
         }
@@ -228,8 +227,6 @@ class AdminPaymentController extends Controller
     public function updateSettings(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            // Currency is fixed to XOF (FCFA). We still accept the field for backward compatibility
-            // with existing forms/tests, but we ignore anything other than XOF.
             'currency' => ['sometimes', 'string', 'max:10'],
             'student_fee_cents' => ['required', 'integer', 'min:0'],
             'staff_base_pay_cents' => ['required', 'integer', 'min:0'],
@@ -238,7 +235,6 @@ class AdminPaymentController extends Controller
             'system_external_account_id' => ['nullable', 'string', 'max:255'],
         ]);
 
-        // Force currency to XOF regardless of user input.
         $data['currency'] = 'XOF';
 
         foreach ($data as $key => $value) {
