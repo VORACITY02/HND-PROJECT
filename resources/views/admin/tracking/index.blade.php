@@ -18,7 +18,7 @@
         <td class="p-2 text-center">{{ $a->supervisor_id }}</td>
         <td class="p-2 text-center">{{ optional($a->assigned_at)->toDayDateTimeString() }}</td>
         <td class="p-2 text-center">
-          <a class="inline-block bg-lime-400 text-green-950 px-3 py-1 rounded border border-lime-200" href="{{ route('admin.tracking.show', $a->student_id) }}">View Tracking</a>
+          <a class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg font-semibold shadow-sm transition-all" href="{{ route('admin.tracking.show', $a->student_id) }}">View Tracking</a>
         </td>
       </tr>
       @empty

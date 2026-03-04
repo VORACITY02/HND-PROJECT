@@ -55,7 +55,7 @@
                     <span class="text-gray-700">Remember me</span>
                 </label>
 
-                <a href="{{ route('password.request') }}" class="text-white/80 hover:text-white hover:underline">
+                <a href="{{ route('password.request') }}" class="text-blue-600 hover:text-blue-800 hover:underline">
                     Forgot password?
                 </a>
             </div>
@@ -67,7 +67,7 @@
 
         <p class="text-center text-gray-600 mt-5 text-sm">
             Not registered?
-            <a href="{{ route('register') }}" class="text-white hover:text-white/90 font-semibold hover:underline">Create account</a>
+            <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-800 font-semibold hover:underline">Create account</a>
         </p>
 
     </div>

@@ -9,7 +9,7 @@
     </div>
     <div class="flex gap-3">
       <a href="{{ route('admin.assignments.index') }}" class="bg-emerald-600 text-white px-4 py-2 rounded">Open Requests</a>
-      <a href="{{ route('admin.tracking.index') }}" class="bg-lime-400 text-green-950 px-4 py-2 rounded border border-lime-200">Open Tracking</a>
+      <a href="{{ route('admin.tracking.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow-sm transition-all">Open Tracking</a>
     </div>
   </div>
 
@@ -48,7 +48,7 @@
       <p class="text-slate-600 mt-2">You currently have <span class="font-semibold">{{ $assignedStudentsCount }}</span> assigned students to track.</p>
 
       <div class="mt-4">
-        <a href="{{ route('admin.tracking.index') }}" class="inline-block bg-lime-400 text-green-950 px-4 py-2 rounded border border-lime-200">View Assigned Students</a>
+        <a href="{{ route('admin.tracking.index') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow-sm transition-all">View Assigned Students</a>
       </div>
 
       <div class="mt-6 border-t pt-4">

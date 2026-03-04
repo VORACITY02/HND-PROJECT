@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Simulator Configuration Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #1e40af;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #1e3a8a;
+            margin-top: 20px;
+        }
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .success-box {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #dc2626;
+        }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        pre code {
+            background: none;
+            color: #e2e8f0;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+        }
+        .step {
+            background: #f8fafc;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border-left: 4px solid #2563eb;
+        }
+        .step-number {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Simulator Configuration Guide</h1>
+        <p><strong>Version:</strong> 1.0 | <strong>Last Updated:</strong> February 2026</p>
+        
+        <div class="info-box">
+            <strong>📘 About This Guide</strong><br>
+            This document explains how to configure the Payment Simulator for the Virtual University Internship Management System. 
+            The payment system supports two modes: <strong>Simulator</strong> (for testing) and <strong>RabbitMaid</strong> (for production).
+        </div>
+
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#overview">System Overview</a></li>
+            <li><a href="#simulator">Payment Simulator Setup</a></li>
+            <li><a href="#rabbitmaid">RabbitMaid Integration</a></li>
+            <li><a href="#configuration">Configuration Variables</a></li>
+            <li><a href="#testing">Testing Payment Flows</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+
+        <h2 id="overview">System Overview</h2>
+        <p>The Internship Management System includes a payment module that handles:</p>
+        <ul>
+            <li><strong>Student Payments:</strong> One-time internship fees collected from students</li>
+            <li><strong>Staff Payouts:</strong> Compensation for staff members and supervisors</li>
+            <li><strong>Payment Accounts:</strong> Virtual wallets for each user</li>
+            <li><strong>Transaction Tracking:</strong> Complete audit trail of all payments</li>
+        </ul>
+
+        <h3>Payment Drivers</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Driver</th>
+                    <th>Purpose</th>
+                    <th>Use Case</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>simulator</code></td>
+                    <td>Testing and development</td>
+                    <td>Local development, automated tests, staging environments</td>
+                </tr>
+                <tr>
+                    <td><code>rabbitmaid</code></td>
+                    <td>Production payments</td>
+                    <td>Live environment with real money transactions</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="simulator">Payment Simulator Setup</h2>
+        
+        <div class="warning-box">
+            <strong>⚠️ Important:</strong> The Payment Simulator is a mock service for testing purposes only. 
+            It does not process real money transactions.
+        </div>
+
+        <h3>Step 1: Install Payment Simulator</h3>
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>Clone the Payment Simulator Repository</strong>
+            <pre><code>git clone https://github.com/your-org/payment-simulator.git
+cd payment-simulator
+npm install
+npm start</code></pre>
+        </div>
+
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>Verify the Simulator is Running</strong>
+            <p>The simulator should start on <code>http://localhost:3000</code> by default.</p>
+            <pre><code>curl http://localhost:3000/health
+# Expected response: {"status": "ok"}</code></pre>
+        </div>
+
+        <h3>Step 2: Configure Environment Variables</h3>
+        <p>Add the following to your <code>.env</code> file:</p>
+        <pre><code># Payment Driver Selection
+PAYMENT_DRIVER=simulator
+
+# Payment Simulator Configuration
+PAYMENT_SIMULATOR_BASE_URL=http://localhost:3000
+PAYMENT_SIMULATOR_API_KEY=test_key_12345
+
+# Payment Settings
+PAYMENT_CURRENCY=XOF
+PAYMENT_STUDENT_FEE_CENTS=50000
+PAYMENT_STAFF_BASE_PAY_CENTS=25000
+PAYMENT_SUPERVISOR_FIXED_BONUS_CENTS=10000
+PAYMENT_PER_SUPERVISEE_BONUS_CENTS=5000
+PAYMENT_SYSTEM_ACCOUNT_ID=</code></pre>
+
+        <div class="info-box">
+            <strong>💡 Currency Note:</strong> The system uses <strong>XOF (West African CFA Franc)</strong> which has no decimal places. 
+            All amounts are stored as whole numbers (cents).
+        </div>
+
+        <h3>Step 3: Create System Payment Account</h3>
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>Login as Admin and Create System Account</strong>
+            <ol>
+                <li>Navigate to <strong>Admin Dashboard → Payments → Settings</strong></li>
+                <li>Click <strong>"Create System Account"</strong> button</li>
+                <li>The system will create a payment account for collecting/distributing funds</li>
+                <li>Copy the generated Account ID</li>
+                <li>Add it to your <code>.env</code> file as <code>PAYMENT_SYSTEM_ACCOUNT_ID</code></li>
+            </ol>
+        </div>
+
+        <h2 id="rabbitmaid">RabbitMaid Integration</h2>
+        
+        <div class="warning-box">
+            <strong>⚠️ Production Only:</strong> RabbitMaid should only be used in production environments with real payment credentials.
+        </div>
+
+        <h3>RabbitMaid Configuration</h3>
+        <p>Add these variables to your production <code>.env</code> file:</p>
+        <pre><code># Payment Driver
+PAYMENT_DRIVER=rabbitmaid
+
+# RabbitMaid API Configuration
+RABBITMAID_ENDPOINT=https://api.rabbitmaid.com
+RABBITMAID_APPLICATION_KEY=your_application_key
+RABBITMAID_ACCESS_KEY=your_access_key
+RABBITMAID_SECRET_KEY=your_secret_key
+
+# Service Configuration
+RABBITMAID_STUDENT_SERVICE=mtn
+RABBITMAID_STAFF_SERVICE=orange
+
+# Payment Settings (same as simulator)
+PAYMENT_CURRENCY=XOF
+PAYMENT_STUDENT_FEE_CENTS=50000
+PAYMENT_STAFF_BASE_PAY_CENTS=25000
+PAYMENT_SUPERVISOR_FIXED_BONUS_CENTS=10000
+PAYMENT_PER_SUPERVISEE_BONUS_CENTS=5000</code></pre>
+
+        <h3>Service Selection</h3>
+        <p>RabbitMaid supports multiple mobile money services:</p>
+        <ul>
+            <li><code>mtn</code> - MTN Mobile Money</li>
+            <li><code>orange</code> - Orange Money</li>
+        </ul>
+        <p>You can configure different services for student payments vs staff payouts.</p>
+
+        <h2 id="configuration">Configuration Variables Reference</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Variable</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>PAYMENT_DRIVER</code></td>
+                    <td>Payment system to use</td>
+                    <td><code>simulator</code> or <code>rabbitmaid</code></td>
+                </tr>
+                <tr>
+                    <td><code>PAYMENT_SIMULATOR_BASE_URL</code></td>
+                    <td>Simulator API endpoint</td>
+                    <td><code>http://localhost:3000</code></td>
+                </tr>
+                <tr>
+                    <td><code>PAYMENT_SIMULATOR_API_KEY</code></td>
+                    <td>Simulator authentication key</td>
+                    <td><code>test_key_12345</code></td>
+                </tr>
+                <tr>
+                    <td><code>PAYMENT_CURRENCY</code></td>
+                    <td>Currency code (ISO 4217)</td>
+                    <td><code>XOF</code></td>
+                </tr>
+                <tr>
+                    <td><code>PAYMENT_STUDENT_FEE_CENTS</code></td>
+                    <td>One-time fee students pay (in cents)</td>
+                    <td><code>50000</code> (500 XOF)</td>
+                </tr>
+                <tr>
+                    <td><code>PAYMENT_STAFF_BASE_PAY_CENTS</code></td>
+                    <td>Base payment for all staff</td>
+                    <td><code>25000</code> (250 XOF)</td>
+                </tr>
+                <tr>
+                    <td><code>PAYMENT_SUPERVISOR_FIXED_BONUS_CENTS</code></td>
+                    <td>Fixed bonus for supervisors</td>
+                    <td><code>10000</code> (100 XOF)</td>
+                </tr>
+                <tr>
+                    <td><code>PAYMENT_PER_SUPERVISEE_BONUS_CENTS</code></td>
+                    <td>Bonus per supervised student</td>
+                    <td><code>5000</code> (50 XOF)</td>
+                </tr>
+                <tr>
+                    <td><code>PAYMENT_SYSTEM_ACCOUNT_ID</code></td>
+                    <td>System's payment account ID</td>
+                    <td>Generated by the system</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="testing">Testing Payment Flows</h2>
+
+        <h3>Test Scenario 1: Student Payment</h3>
+        <div class="step">
+            <strong>Prerequisites:</strong> Simulator running, system account created
+            <ol>
+                <li>Login as a student user</li>
+                <li>Navigate to <strong>My Payments</strong></li>
+                <li>Click <strong>"Create payment account"</strong></li>
+                <li>Click <strong>"Pay remaining"</strong> button</li>
+                <li>Verify payment appears in transaction history</li>
+                <li>Check that remaining balance is zero</li>
+            </ol>
+        </div>
+
+        <h3>Test Scenario 2: Staff Payout</h3>
+        <div class="step">
+            <strong>Prerequisites:</strong> Staff user is an approved supervisor with assigned students
+            <ol>
+                <li>Login as a staff user</li>
+                <li>Navigate to <strong>My Payouts</strong></li>
+                <li>Click <strong>"Activate wallet"</strong></li>
+                <li>Verify computed payout amount is displayed</li>
+                <li>Click <strong>"Request payout"</strong></li>
+                <li>Check payout history for the transaction</li>
+            </ol>
+        </div>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+
+        <h3>Error: "Account creation failed: Simulator did not return an account_id"</h3>
+        <div class="warning-box">
+            <strong>Cause:</strong> Payment simulator is not running or <code>PAYMENT_SIMULATOR_BASE_URL</code> is incorrect.
+            <br><br>
+            <strong>Solution:</strong>
+            <ol>
+                <li>Verify the simulator is running: <code>curl http://localhost:3000/health</code></li>
+                <li>Check the <code>PAYMENT_SIMULATOR_BASE_URL</code> in your <code>.env</code> file</li>
+                <li>Ensure there are no firewall rules blocking the connection</li>
+            </ol>
+        </div>
+
+        <h3>Error: "System payment account is not configured"</h3>
+        <div class="warning-box">
+            <strong>Cause:</strong> The system hasn't created its payment account yet.
+            <br><br>
+            <strong>Solution:</strong>
+            <ol>
+                <li>Login as an admin user</li>
+                <li>Go to <strong>Admin → Payments → Settings</strong></li>
+                <li>Click <strong>"Create System Account"</strong></li>
+                <li>Update <code>PAYMENT_SYSTEM_ACCOUNT_ID</code> in <code>.env</code></li>
+            </ol>
+        </div>
+
+        <h3>Error: "Student has no payment account"</h3>
+        <div class="info-box">
+            <strong>Cause:</strong> User hasn't created their payment account yet.
+            <br><br>
+            <strong>Solution:</strong> Users must click "Create payment account" or "Activate wallet" before making payments.
+        </div>
+
+        <div class="success-box">
+            <h3>✅ Setup Complete!</h3>
+            <p>If you've followed all steps above, your payment system should be fully configured and ready to use.</p>
+            <p>For additional support, refer to the main project documentation or contact the development team.</p>
+        </div>
+
+        <hr style="margin: 40px 0;">
+        <p style="text-align: center; color: #64748b; font-size: 0.9em;">
+            © 2026 Virtual University Internship Management System<br>
+            Payment Configuration Guide v1.0
+        </p>
+    </div>
+</body>
+</html>

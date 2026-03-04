@@ -1,13 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="mb-6">
-    <div class="flex items-center gap-3">
-        <a href="{{ route('messages.index') }}" class="text-primary-600 hover:text-primary-700">
-            ← Back to Inbox
-        </a>
-    </div>
-</div>
 
 <div class="bg-white rounded-xl shadow-lg p-6">
     <!-- Message Header -->
@@ -68,15 +61,11 @@
         <div class="mt-8 pt-6 border-t border-slate-200">
             <div class="flex items-center space-x-4">
                 <a href="{{ route('messages.create') }}?reply_to={{ $message->sender_id }}&subject={{ urlencode('Re: ' . $message->subject) }}" 
-                   class="bg-lime-400 hover:bg-lime-300 text-green-950 px-6 py-3 rounded-lg font-medium transition-all shadow-lg border border-lime-200">
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all shadow-sm">
                     <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
                     </svg>
                     Reply to {{ $message->sender->name }}
-                </a>
-                <a href="{{ route('messages.index') }}" 
-                   class="bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg font-medium transition-all">
-                    Back to Inbox
                 </a>
             </div>
         </div>

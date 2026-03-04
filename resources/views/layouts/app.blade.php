@@ -96,10 +96,6 @@
                         @endif
                     </a>
 
-                    <button type="button" data-theme-toggle class="{{ $navBtn }}" title="Toggle theme">
-                        <span data-theme-label>Theme</span>
-                    </button>
-
                     <a href="{{ route('profile.edit') }}" class="{{ $navBtn }}">Profile</a>
 
                     <div class="hidden sm:flex items-center gap-2 border border-blue-200 bg-blue-50 rounded-lg px-3 py-2 whitespace-nowrap">

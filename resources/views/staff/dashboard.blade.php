@@ -8,13 +8,13 @@
             <h1 class="text-4xl font-black mb-2">
                 Welcome back, {{ auth()->user()->name }}! 👋
             </h1>
-            <p class="text-slate-300 text-lg">
+            <p class="text-slate text-lg">
                 Staff Dashboard - Manage your students and programs
             </p>
         </div>
         <div class="text-right">
-            <p class="text-slate-400 text-sm">{{ now()->format('l, F j, Y') }}</p>
-            <p class="text-slate-500 text-xs">{{ now()->format('g:i A') }}</p>
+            <p class="text-slate text-sm">{{ now()->format('l, F j, Y') }}</p>
+            <p class="text-slate text-xs">{{ now()->format('g:i A') }}</p>
         </div>
     </div>
 </div>
@@ -32,7 +32,7 @@
                     </svg>
                 </div>
             </div>
-            <p class="text-slate-400 text-sm font-medium mb-2">Total Students</p>
+            <p class="text-white text-sm font-medium mb-2">Total Students</p>
             <p class="text-4xl font-bold text-white mb-2">{{ \App\Models\User::where('role', 'user')->count() }}</p>
             <p class="text-xs text-blue-400">Registered users</p>
         </div>
@@ -49,7 +49,7 @@
                     </svg>
                 </div>
             </div>
-            <p class="text-slate-400 text-sm font-medium mb-2">Staff Team</p>
+            <p class="text-white text-sm font-medium mb-2">Staff Team</p>
             <p class="text-4xl font-bold text-white mb-2">{{ \App\Models\User::where('role', 'staff')->count() }}</p>
             <p class="text-xs text-emerald-400">Colleagues</p>
         </div>
@@ -66,7 +66,7 @@
                     </svg>
                 </div>
             </div>
-            <p class="text-slate-400 text-sm font-medium mb-2">Messages Sent</p>
+            <p class="text-white text-sm font-medium mb-2">Messages Sent</p>
             <p class="text-4xl font-bold text-white mb-2">{{ \App\Models\Message::where('sender_id', auth()->id())->count() }}</p>
             <p class="text-xs text-lime-300">Communications</p>
         </div>
@@ -83,7 +83,7 @@
                     </svg>
                 </div>
             </div>
-            <p class="text-slate-400 text-sm font-medium mb-2">Unread Messages</p>
+            <p class="text-white text-sm font-medium mb-2">Unread Messages</p>
             @php
                 $user = auth()->user();
                 $unreadCount = \App\Models\Message::where(function($query) use ($user) {
@@ -108,7 +108,7 @@
 <!-- Notices / Instructions -->
 <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 rounded-xl shadow-lg border border-slate-700 mb-6">
     <h2 class="text-xl font-bold mb-1">Staff Dashboard</h2>
-    <p class="text-slate-300 text-sm">Instructions: Apply to become a supervisor (if not yet approved), create internship tasks for assigned students, and grade their submissions. You’ll receive notifications when your supervisor application is approved or rejected.</p>
+    <p class="text-white mb-2">Instructions: Apply to become a supervisor (if not yet approved), create internship tasks for assigned students, and grade their submissions. You’ll receive notifications when your supervisor application is approved or rejected.</p>
     @isset($unreadCount)
         @if($unreadCount > 0)
             <div class="mt-3 bg-amber-500/20 border border-amber-400/40 text-amber-200 px-3 py-2 rounded">
@@ -285,7 +285,7 @@
                             <td class="p-2">{{ $a->assignedBy?->name ?? 'N/A' }} (ID: {{ $a->assigned_by_admin_id }})</td>
                             <td class="p-2 text-center">{{ optional($a->assigned_at)->toDayDateTimeString() }}</td>
                             <td class="p-2 text-center">
-                                <a href="{{ route('staff.tasks.index') }}" class="inline-block bg-lime-400 text-green-950 px-3 py-1 rounded border border-lime-200">View</a>
+                                <a href="{{ route('staff.tasks.index') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg font-semibold shadow-sm transition-all">View</a>
                             </td>
                         </tr>
                     @endforeach

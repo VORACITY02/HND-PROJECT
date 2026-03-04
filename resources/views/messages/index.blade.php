@@ -1,19 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Back to Dashboard Button -->
-<div class="mb-8">
-    <a href="@if(auth()->user()->role === 'admin'){{ route('admin.dashboard') }}@elseif(auth()->user()->role === 'staff'){{ route('staff.dashboard') }}@else{{ route('user.dashboard') }}@endif" 
-       class="inline-flex items-center text-green-900 hover:text-green-950 font-medium transition-colors">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-        </svg>
-        Back to Dashboard
-    </a>
-</div>
 
-<!-- Header Section -->
-<div class="bg-slate-800 text-white rounded-xl p-8 mb-8 shadow-xl">
+<div class="bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-xl p-8 mb-8 shadow-xl border border-blue-500">
     <div class="flex justify-between items-center">
         <div class="flex items-center space-x-4">
             <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
@@ -22,18 +11,18 @@
                 </svg>
             </div>
             <div>
-                <h1 class="text-3xl font-bold mb-1">Message Center</h1>
-                <p class="text-blue-300">Professional communication hub for all messages</p>
+                <h1 class="text-white text-3xl font-bold mb-1">Message Center</h1>
+                <p class="text-blue-100">Professional communication hub for all messages</p>
             </div>
         </div>
         <div class="flex gap-3">
-            <a href="{{ route('messages.sent') }}" class="bg-green-900/40 hover:bg-green-900/55 px-6 py-3 rounded-lg font-medium transition-all border border-lime-300/20">
+            <a href="{{ route('messages.sent') }}" class="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-lg font-medium transition-all border border-white/30">
                 <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                 </svg>
                 Sent Messages
             </a>
-            <a href="{{ route('messages.create') }}" class="bg-lime-400 hover:bg-lime-300 text-green-950 px-6 py-3 rounded-lg font-medium transition-all shadow-lg border border-lime-200">
+            <a href="{{ route('messages.create') }}" class="bg-white hover:bg-blue-50 text-blue-700 px-6 py-3 rounded-lg font-semibold transition-all shadow-lg border border-blue-200">
                 <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
                 </svg>

@@ -38,7 +38,7 @@
       <input name="address" value="{{ old('address', $address) }}" class="w-full border p-2 rounded" required />
     </div>
 
-    <button class="bg-lime-400 text-green-950 px-4 py-2 rounded border border-lime-200">Save and Continue</button>
+    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow-sm transition-all">Save and Continue</button>
 
     @if($redirectTo)
       <input type="hidden" name="redirect_to" value="{{ $redirectTo }}" />

@@ -23,7 +23,7 @@ class AdminSupervisorController extends Controller
     {
         $application->update(['status' => 'approved']);
 
-        \\App\\Models\\Message::create([
+        \App\Models\Message::create([
             'sender_id' => auth()->id(),
             'receiver_id' => $application->staff_id,
             'subject' => 'Supervisor Application Approved',
@@ -39,7 +39,7 @@ class AdminSupervisorController extends Controller
     {
         $application->update(['status' => 'rejected']);
 
-        \\App\\Models\\Message::create([
+        \App\Models\Message::create([
             'sender_id' => auth()->id(),
             'receiver_id' => $application->staff_id,
             'subject' => 'Supervisor Application Rejected',
@@ -63,11 +63,11 @@ class AdminSupervisorController extends Controller
 
         $application->update(['status' => 'rejected']);
 
-        \\App\\Models\\SupervisorAssignment::where('supervisor_id', $application->staff_id)
+        \App\Models\SupervisorAssignment::where('supervisor_id', $application->staff_id)
             ->where('active', true)
             ->update(['active' => false]);
 
-        \\App\\Models\\InternshipTask::where('supervisor_id', $application->staff_id)
+        \App\Models\InternshipTask::where('supervisor_id', $application->staff_id)
             ->whereNull('assigned_student_id')
             ->delete();
 

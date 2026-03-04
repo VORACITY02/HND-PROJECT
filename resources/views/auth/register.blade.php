@@ -75,7 +75,7 @@
 
         <p class="text-center text-gray-600 mt-5 text-sm">
             Already have an account?
-            <a href="{{ route('login') }}" class="text-white hover:text-white/90 font-semibold hover:underline">
+            <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-800 font-semibold hover:underline">
                 Login
             </a>
         </p>

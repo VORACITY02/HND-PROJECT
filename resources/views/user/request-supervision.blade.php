@@ -26,7 +26,7 @@
             <label class="block font-semibold">Note (optional)</label>
             <textarea name="note" class="w-full border p-2 rounded" rows="3"></textarea>
         </div>
-        <button class="bg-lime-400 text-green-950 px-4 py-2 rounded border border-lime-200">Send Request</button>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow-sm transition-all">Send Request</button>
     </form>
 </div>
 @endsection

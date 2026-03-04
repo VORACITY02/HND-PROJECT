@@ -99,25 +99,60 @@
     @endif
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a href="{{ route('messages.index') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 hover:border-sky-300 transition">
-            <p class="font-semibold text-slate-900 group-hover:text-sky-900">Messages</p>
-            <p class="text-sm text-slate-500">Read and send messages</p>
+        <a href="{{ route('messages.index') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 transition">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                    </svg>
+                </div>
+            </div>
+            <p class="font-semibold text-slate-900 mb-1">Messages</p>
+            <p class="text-sm text-slate-600">Read and send messages</p>
         </a>
-        <a href="{{ route('profile.edit') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 hover:border-sky-300 transition">
-            <p class="font-semibold text-slate-900 group-hover:text-sky-900">Profile</p>
-            <p class="text-sm text-slate-500">Update your profile</p>
+        <a href="{{ route('profile.edit') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 transition">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+                    <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    </svg>
+                </div>
+            </div>
+            <p class="font-semibold text-slate-900 mb-1">Profile</p>
+            <p class="text-sm text-slate-600">Update your profile</p>
         </a>
-        <a href="{{ route('user.tasks.index') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 hover:border-sky-300 transition">
-            <p class="font-semibold text-slate-900 group-hover:text-sky-900">My Tasks</p>
-            <p class="text-sm text-slate-500">View and submit assigned tasks</p>
+        <a href="{{ route('user.tasks.index') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 transition">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center group-hover:bg-amber-200 transition-colors">
+                    <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+                    </svg>
+                </div>
+            </div>
+            <p class="font-semibold text-slate-900 mb-1">My Tasks</p>
+            <p class="text-sm text-slate-600">View and submit assigned tasks</p>
         </a>
-        <a href="{{ route('user.payments.index') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 hover:border-sky-300 transition">
-            <p class="font-semibold text-slate-900 group-hover:text-sky-900">My Payments</p>
-            <p class="text-sm text-slate-500">Pay internship fees and track status</p>
+        <a href="{{ route('user.payments.index') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 transition">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-sky-100 rounded-lg flex items-center justify-center group-hover:bg-sky-200 transition-colors">
+                    <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                </div>
+            </div>
+            <p class="font-semibold text-slate-900 mb-1">My Payments</p>
+            <p class="text-sm text-slate-600">Pay internship fees and track status</p>
         </a>
-        <a href="{{ route('profile.personal') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 hover:border-sky-300 transition">
-            <p class="font-semibold text-slate-900 group-hover:text-sky-900">Personal Data</p>
-            <p class="text-sm text-slate-500">View saved personal data</p>
+        <a href="{{ route('profile.personal') }}" class="group block bg-white/90 backdrop-blur p-6 rounded-xl shadow hover:shadow-lg border border-slate-200 transition">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                    <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+            </div>
+            <p class="font-semibold text-slate-900 mb-1">Personal Data</p>
+            <p class="text-sm text-slate-600">View saved personal data</p>
         </a>
     </div>
 </div>

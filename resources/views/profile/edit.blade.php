@@ -9,7 +9,7 @@
             <span class="text-white font-bold text-2xl">{{ substr(auth()->user()->name, 0, 1) }}</span>
         </div>
         <div>
-            <h1 class="text-3xl font-bold mb-1">Profile Settings</h1>
+            <h1 class="text-blue-400 font-bold mb-1">Profile Settings</h1>
             <p class="text-blue-300">Manage your account information and preferences</p>
             <div class="flex items-center space-x-2 mt-2">
                 <span class="bg-blue-600/20 border border-blue-500/30 px-3 py-1 rounded-full text-sm">
